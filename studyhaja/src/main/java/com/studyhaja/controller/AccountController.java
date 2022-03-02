@@ -1,6 +1,7 @@
 package com.studyhaja.controller;
 
 import com.studyhaja.domain.account.Account;
+import com.studyhaja.domain.account.SignUpForm;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +22,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class AccountController {
 
     @GetMapping("/sign-up")
-    public String signUp(Model model) {
+    public String signUp(Model model, Account account) {
+        model.addAttribute(new SignUpForm());
 
         return "account/sign-up";
     }
