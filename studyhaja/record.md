@@ -77,3 +77,9 @@
     * 스프링 mail
     * QueryDSL
     * 스프링 부트 devtools
+
+## Account 도메인 클래스
+- Account 도메인에 필요한 데이터
+  * 로그인
+  * 프로필
+  * 알림 설정
