@@ -1,4 +1,4 @@
-package com.studyhaja.domain;
+package com.studyhaja.domain.account;
 
 import lombok.*;
 
