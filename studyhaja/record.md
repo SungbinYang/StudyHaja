@@ -88,3 +88,15 @@
 - 목표
   * GET “/sign-up” 요청을 받아서 account/sign-up.html 페이지 보여준다.
   * 회원 가입 폼에서 입력 받을 수 있는 정보를 “닉네임", “이메일", “패스워드" 폼 객체로 제공한다.
+
+## 회원 가입: 뷰
+- [부트스트랩](https://getbootstrap.com/)
+  * 네비게이션 바 만들기
+  * 폼 만들기
+- [타임리프](https://www.thymeleaf.org/)
+  * SignUpForm 타입 객체를 폼 객체로 설정하기
+- 웹(HTML, CSS, JavaScript)
+  * [제약 검증 기능](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Constraint_validation) 사용하기
+    * 닉네임 (3~20자, 필수 입력)
+    * 이메일 (이메일 형식, 필수 입력)
+    * 패스워드 (8~50자, 필수 입력)
