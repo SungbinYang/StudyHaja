@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 /**
  * packageName : com.studyhaja.domain
@@ -66,4 +67,8 @@ public class Account {
     private boolean studyUpdatedByEmail; // 스터디 갱산 정보룰 이메일로 받을것인가?
 
     private boolean studyUpdatedByWeb; // 스터디 갱산 정보룰 웹으로 받을것인가?
+
+    public void generateEmailCheckToken() {
+        this.emailCheckToken = UUID.randomUUID().toString();
+    }
 }
