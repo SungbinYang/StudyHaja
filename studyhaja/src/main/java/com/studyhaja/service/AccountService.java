@@ -6,6 +6,7 @@ import com.studyhaja.domain.account.SignUpForm;
 import com.studyhaja.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -28,6 +29,8 @@ public class AccountService {
 
     private final ConsoleMailSender consoleMailSender;
 
+    private final PasswordEncoder passwordEncoder;
+
     public void processNewAccount(SignUpForm signUpForm) {
         Account newAccount = saveNewAccount(signUpForm);
         newAccount.generateEmailCheckToken();
@@ -41,7 +44,7 @@ public class AccountService {
         Account account = Account.builder()
                 .email(signUpForm.getEmail())
                 .nickname(signUpForm.getNickname())
-                .password(signUpForm.getPassword()) // TODO: password encoding
+                .password(passwordEncoder.encode(signUpForm.getPassword())) // TODO: password encoding
                 .studyCreatedByWeb(true)
                 .studyEnrollmentResultByWeb(true)
                 .studyUpdatedByWeb(true)

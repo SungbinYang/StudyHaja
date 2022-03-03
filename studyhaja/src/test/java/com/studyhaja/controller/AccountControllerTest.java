@@ -1,6 +1,7 @@
 package com.studyhaja.controller;
 
 import com.studyhaja.ConsoleMailSender;
+import com.studyhaja.domain.account.Account;
 import com.studyhaja.repository.AccountRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.then;
@@ -82,5 +84,8 @@ class AccountControllerTest {
 
         assertTrue(accountRepository.existsByEmail("sungbin@email.com"));
         then(consoleMailSender).should().send(any(SimpleMailMessage.class));
+
+        Account account = accountRepository.findByEmail("sungbin@email.com");
+        assertNotEquals(account.getPassword(), "12345678");
     }
 }

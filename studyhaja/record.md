@@ -131,3 +131,14 @@
   * 코드가 적절한 위치에 있는가?
     * 객체들 사이의 의존 관계
     * 책임이 너무 많진 않은지
+
+## 회원 가입: 패스워드 인코더
+- 절대로 패스워드를 평문으로 저장해서는 안 됩니다.
+  * Account 엔티티를 저장할 때 패스워드 인코딩하기
+- 스프링 시큐리티 권장 PasswordEncoder
+  * PasswordEncoderFactories.createDelegatingPasswordEncoder()
+  * 여러 해시 알고리듬을 지원하는 패스워드 인코더
+  * 기본 알고리듬 bcrypt
+- 해싱 알고리듬(bcrypt)과 솔트(salt)
+  * 해싱 알고리듬을 쓰는 이유?
+  * 솔트를 쓰는 이유?
