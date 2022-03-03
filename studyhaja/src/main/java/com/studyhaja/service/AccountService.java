@@ -1,6 +1,6 @@
 package com.studyhaja.service;
 
-import com.studyhaja.ConsoleMailSender;
+import com.studyhaja.mail.ConsoleMailSender;
 import com.studyhaja.domain.account.Account;
 import com.studyhaja.domain.account.SignUpForm;
 import com.studyhaja.repository.AccountRepository;
@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * packageName : com.studyhaja.service
@@ -31,6 +32,7 @@ public class AccountService {
 
     private final PasswordEncoder passwordEncoder;
 
+    @Transactional
     public void processNewAccount(SignUpForm signUpForm) {
         Account newAccount = saveNewAccount(signUpForm);
         newAccount.generateEmailCheckToken();
