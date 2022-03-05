@@ -1,0 +1,1 @@
+$('#currentTime').text('©' + new Date().getFullYear());

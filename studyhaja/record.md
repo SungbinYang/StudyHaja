@@ -178,3 +178,23 @@
 - 스프링 시큐리티 관점에서 로그인
   * SecurityContext에 Authentication(Token)이 존재하는가?
   * UsernamePasswordAuthenticationToken
+
+## 회원 가입: 메인 네비게이션 메뉴 변경
+- 네비게이션 뷰
+  * 인증 정보가 없는 경우
+  * 인증 정보가 있는 경우
+- 타임리프 스프링 시큐리티
+
+```xml
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity5</artifactId>
+        </dependency>
+```
+
+- 인증 정보가 없는 경우
+  * 로그인 / 가입 버튼 보여주기
+-인증 정보가 있는 경우
+  * 알림 / 스터디 개설 / 프로필 드랍다운 메뉴 보여주기
+
+![](./img03.png)
