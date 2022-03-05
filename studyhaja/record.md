@@ -170,3 +170,11 @@
     * 뷰 이름 확인
 - 리팩토링
   * 코드의 위치가 적절한가?
+
+## 회원 가입: 가입 완료 후 자동 로그인
+- 목표
+  * 회원 가입 완료시 자동 로그인
+  * 이메일 인증 완료시 자동 로그인
+- 스프링 시큐리티 관점에서 로그인
+  * SecurityContext에 Authentication(Token)이 존재하는가?
+  * UsernamePasswordAuthenticationToken
