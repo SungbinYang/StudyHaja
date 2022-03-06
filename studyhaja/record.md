@@ -339,3 +339,30 @@ public void configure(WebSecurity web) throws Exception {
   * 인증 메일을 다시 전송할 수 있는지 확인한 뒤에
   * 보낼 수 있으면 전송하고, 첫 페이지로 리다이렉트
   * 보낼 수 없으면 에러 메시지를 모델에 담아주고 이메일 확인 페이지 다시 보여주기.
+
+## 로그인 / 로그아웃
+- 커스텀 로그인 페이지 만들기
+- 스프링 시큐리티 로그인/로그아웃 설정
+
+```java
+@Override
+protected void configure(HttpSecurity http) throws Exception {
+        http
+        .authorizeRequests()
+        .mvcMatchers("/", "/login", "/sign-up", "/check-email-token", "/email-login",
+        "/check-email-login", "/login-link").permitAll()
+        .mvcMatchers(HttpMethod.GET, "/profile/*").permitAll()
+        .anyRequest().authenticated()
+        .and()
+        .formLogin()
+        .loginPage("/login").permitAll()
+        .and()
+        .logout()
+        .logoutSuccessUrl("/");
+        }
+```
+
+- 스프링 시큐리티 로그인 기본값
+  * username
+  * password
+  * POST “/login”
