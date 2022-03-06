@@ -198,3 +198,71 @@
   * 알림 / 스터디 개설 / 프로필 드랍다운 메뉴 보여주기
 
 ![](./img03.png)
+
+## 프론트엔드 라이브러리 설정
+- WebJar vs NPM
+  * WebJar 보다는 NPM 선호.
+  * WebJar는 라이브러리 업데이트가 느리다. 심지어 제공하지 않는 라이브러리도 많다.
+- 스프링 부트와 NPM
+  * src/main/resources/static 디렉토리 이하는 정적 리소스로 제공한다. (스프링 부트)
+  * package.json에 프론트엔드 라이브러리를 제공한다.
+  * 이 둘을 응용하면, 즉 static 디렉토리 아래에 package.json을 사용해서 라이브러리를 받아오면 정적 리소스로 프론트엔드 라이브러리를 사용할 수 있다.
+- 고려해야 할 점
+  * 빌드
+  * 버전관리
+  * 시큐리티 설정
+- 빌드
+  * 메이븐 pom.xml을 빌드할 때 static 디렉토리 아래에 있는 package.json도 빌드하도록 설정해야 한다.
+  * 빌드를 안하면 프론트엔드 라이브러리를 받아오지 않아서 뷰에서 필요한 참조가 끊어지고 화면이 제대로 보이지 않는다.
+
+  ```xml
+              <plugin>
+                  <groupId>com.github.eirslett</groupId>
+                  <artifactId>frontend-maven-plugin</artifactId>
+                  <version>1.8.0</version>
+                  <configuration>
+                      <nodeVersion>v14.16.1</nodeVersion>
+                      <workingDirectory>src/main/resources/static</workingDirectory>
+                  </configuration>
+                  <executions>
+                      <execution>
+                          <id>install node and npm</id>
+                          <goals>
+                              <goal>install-node-and-npm</goal>
+                          </goals>
+                          <phase>generate-resources</phase>
+                      </execution>
+                      <execution>
+                          <id>npm install</id>
+                          <goals>
+                              <goal>npm</goal>
+                          </goals>
+                          <phase>generate-resources</phase>
+                          <configuration>
+                              <arguments>install</arguments>
+                          </configuration>
+                      </execution>
+                  </executions>
+              </plugin>
+  ```
+  
+- 버전 관리
+  * 빌드해서 생성되는 파일이나 디렉토리는 .gitignore 파일에 명시하여 버전관리에서 제외한다.
+  
+  ```gitignore
+  ### NPM ###
+  src/main/resources/static/node_modules
+  src/main/resources/static/node
+  ```
+  
+- 시큐리티 설정
+  * /node_modules/** 요청에는 시큐리티 필터를 적용하지 않도록 설정한다.
+
+```java
+@Override
+public void configure(WebSecurity web) throws Exception {
+    web.ignoring()
+            .mvcMatchers("/node_modules/**")
+            .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+}
+```
