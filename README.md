@@ -33,3 +33,4 @@
 - 로그인 / 로그아웃 테스트
 - 로그인 기억하기 (RememberMe)
 - 프로필 뷰
+- Open EntityManager (또는 Session) In View 필터
