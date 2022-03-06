@@ -366,3 +366,12 @@ protected void configure(HttpSecurity http) throws Exception {
   * username
   * password
   * POST “/login”
+
+## 로그인 / 로그아웃 테스트
+- 테스트 요점 정리
+  * 폼 서브밋 요청 (post)은 반드시 .with(csrf())를 추가할 것.
+  * .andExpect(authenticated()) 또는 .andExpect(unauthenticated())로 인증 여부를 확인할 수 있다.
+  * 리다이렉트 응답은 .andExpect(status().is3xxRedirection()) 로 확인한다.
+  * 리다이렉트 URL은 .andExpect(redirectedUrl()) 로 확인할 수 있다.
+  * JUnit 5의 @BeforeEach와 @AfterEach.
+  * 임의로 로그인 된 사용자가 필요한 경우에는 @WithMockUser.
