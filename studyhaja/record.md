@@ -301,3 +301,27 @@ public void configure(WebSecurity web) throws Exception {
     스터디올레 가입을 완료하려면 <a href="#" th:href="@{/check-email}" class="alert-link">계정 인증 이메일을 확인</a>하세요.
 </div>
 ```
+
+## 현재 인증된 사용자 정보 참조
+- 스프링 시큐리티의 스프링 웹 MVC 지원
+  * @AuthenticationPrincipal
+    * 핸들러 매개변수로 현재 인증된 Principal을 참조할 수 있다.
+  * Princial을 어디에 넣을까?
+
+  ```java
+      public void login(Account account) {
+          UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
+                  account.getNickname(),
+                  account.getPassword(),
+                  List.of(new SimpleGrantedAuthority("ROLE_USER")));
+          SecurityContextHolder.getContext().setAuthentication(token);
+      }
+  ```
+  
+  * @AuthenticationPricipal은 SpEL을 사용해서 Principal 내부 정보에 접근할 수도 있다.
+
+  ```java
+  @AuthenticationPrincipal(expression = "#this == 'anonymousUser' ? null : account")
+  ```
+  
+  * 익명 인증인 경우에는 null로 설정하고, 아닌 경우에는 account 프로퍼티를 조회해서 설정하라.

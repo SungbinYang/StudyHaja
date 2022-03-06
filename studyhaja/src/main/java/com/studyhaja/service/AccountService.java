@@ -2,6 +2,7 @@ package com.studyhaja.service;
 
 import com.studyhaja.domain.account.Account;
 import com.studyhaja.domain.account.SignUpForm;
+import com.studyhaja.domain.account.UserAccount;
 import com.studyhaja.mail.ConsoleMailSender;
 import com.studyhaja.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
@@ -75,7 +76,7 @@ public class AccountService {
         // 정석적인 방법을 사용하지 못하는 이유는 패스워드를 인코딩한 패스워드밖에 접근이 불가능하기 때문이다.
         // 정석적인 방법은 그 플레인 텍스트로 받은 비밀번호를 써야한다.
         // 로그인 로직
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(account.getNickname(),
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(new UserAccount(account),
                 account.getPassword(), List.of(new SimpleGrantedAuthority("ROLE_USER")));
 
         SecurityContextHolder.getContext().setAuthentication(token);
