@@ -3,10 +3,10 @@ package com.studyhaja.service;
 import com.studyhaja.domain.account.Account;
 import com.studyhaja.domain.account.SignUpForm;
 import com.studyhaja.domain.account.UserAccount;
-import com.studyhaja.mail.ConsoleMailSender;
 import com.studyhaja.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -34,7 +34,7 @@ public class AccountService {
 
     private final AccountRepository accountRepository;
 
-    private final ConsoleMailSender consoleMailSender;
+    private final JavaMailSender javaMailSender;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -63,12 +63,12 @@ public class AccountService {
         return accountRepository.save(account);
     }
 
-    private void sendSignUpConfirmEmail(Account newAccount) {
+    public void sendSignUpConfirmEmail(Account newAccount) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(newAccount.getEmail());
         mailMessage.setSubject("스터디하자, 회원가입 인증");
         mailMessage.setText("/check-email-token?token=" + newAccount.getEmailCheckToken() +  "&email=" + newAccount.getEmail());
-        consoleMailSender.send(mailMessage);
+        javaMailSender.send(mailMessage);
     }
 
     public void login(Account account) {
