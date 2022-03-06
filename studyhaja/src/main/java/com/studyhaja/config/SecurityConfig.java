@@ -1,6 +1,6 @@
 package com.studyhaja.config;
 
-import com.studyhaja.service.AccountService;
+import com.studyhaja.service.account.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;

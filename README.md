@@ -34,3 +34,7 @@
 - 로그인 기억하기 (RememberMe)
 - 프로필 뷰
 - Open EntityManager (또는 Session) In View 필터
+
+## 계정 설정
+
+- 프로필 수정 폼

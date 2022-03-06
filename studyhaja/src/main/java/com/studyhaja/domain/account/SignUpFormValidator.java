@@ -1,6 +1,6 @@
 package com.studyhaja.domain.account;
 
-import com.studyhaja.repository.AccountRepository;
+import com.studyhaja.repository.account.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

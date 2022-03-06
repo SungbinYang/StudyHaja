@@ -1,14 +1,15 @@
-package com.studyhaja.controller;
+package com.studyhaja.controller.settings;
 
 import com.studyhaja.annotation.CurrentUser;
 import com.studyhaja.domain.account.Account;
+import com.studyhaja.domain.settings.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
- * packageName : com.studyhaja.main
- * fileName : MainController
+ * packageName : com.studyhaja.controller.settings
+ * fileName : SettingsController
  * author : rovert
  * date : 2022/03/06
  * description :
@@ -19,20 +20,13 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 
 @Controller
-public class MainController {
+public class SettingsController {
 
-    @GetMapping("/")
-    public String home(@CurrentUser Account account, Model model) {
-        if (account != null) {
-            model.addAttribute(account);
-        }
+    @GetMapping("/settings/profile")
+    public String profileUpdateForm(@CurrentUser Account account, Model model) {
+        model.addAttribute(account);
+        model.addAttribute(new Profile(account));
 
-        return "index";
+        return "settings/profile";
     }
-
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
-
 }

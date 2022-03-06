@@ -1,4 +1,4 @@
-package com.studyhaja.repository;
+package com.studyhaja.repository.account;
 
 import com.studyhaja.domain.account.Account;
 import org.springframework.data.jpa.repository.JpaRepository;

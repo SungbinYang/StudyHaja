@@ -452,3 +452,11 @@ create table persistent_logins (username varchar(64) not null, series varchar(64
 - 스터디하자의 선택
   * 데이터 변경은 서비스 계층으로 위임해서 트랜잭션안에서 처리한다.
   * 데이터 조회는 리파지토리 또는 서비스를 사용한다.
+
+## 프로필 수정 폼
+- 프로필 수정 뷰
+
+![](./img06.png)
+
+- 컨트롤러
+  * Bio, Link, Occupation, Location 정보만 입력받아서 Account 정보를 수정한다.

@@ -1,9 +1,9 @@
-package com.studyhaja.service;
+package com.studyhaja.service.account;
 
 import com.studyhaja.domain.account.Account;
 import com.studyhaja.domain.account.SignUpForm;
 import com.studyhaja.domain.account.UserAccount;
-import com.studyhaja.repository.AccountRepository;
+import com.studyhaja.repository.account.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;

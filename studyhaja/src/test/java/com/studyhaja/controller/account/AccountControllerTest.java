@@ -1,8 +1,8 @@
-package com.studyhaja.controller;
+package com.studyhaja.controller.account;
 
 import com.studyhaja.mail.ConsoleMailSender;
 import com.studyhaja.domain.account.Account;
-import com.studyhaja.repository.AccountRepository;
+import com.studyhaja.repository.account.AccountRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

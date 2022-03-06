@@ -1,11 +1,11 @@
-package com.studyhaja.controller;
+package com.studyhaja.controller.account;
 
 import com.studyhaja.annotation.CurrentUser;
 import com.studyhaja.domain.account.Account;
 import com.studyhaja.domain.account.SignUpForm;
 import com.studyhaja.domain.account.SignUpFormValidator;
-import com.studyhaja.repository.AccountRepository;
-import com.studyhaja.service.AccountService;
+import com.studyhaja.repository.account.AccountRepository;
+import com.studyhaja.service.account.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

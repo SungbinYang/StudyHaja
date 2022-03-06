@@ -1,8 +1,8 @@
-package com.studyhaja.controller;
+package com.studyhaja.controller.main;
 
 import com.studyhaja.domain.account.SignUpForm;
-import com.studyhaja.repository.AccountRepository;
-import com.studyhaja.service.AccountService;
+import com.studyhaja.repository.account.AccountRepository;
+import com.studyhaja.service.account.AccountService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
