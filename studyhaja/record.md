@@ -423,3 +423,12 @@ create table persistent_logins (username varchar(64) not null, series varchar(64
 ```
 
 - 또는 @Entity 맵핑으로 생성.
+
+## 프로필 뷰
+- 정보가 없는 프로필 뷰
+- 정보가 있는 프로필 뷰
+  * 정보의 유/무 여부에 따라 보여줄 메시지가 다르다.
+  * 현재 유저가 프로필을 수정할 수 있는 권한이 있는지 판단해야 한다.
+- 부트스트랩
+  * [ListGroup](https://getbootstrap.com/docs/4.4/components/list-group/)
+  * [Grid](https://getbootstrap.com/docs/4.4/layout/grid/)

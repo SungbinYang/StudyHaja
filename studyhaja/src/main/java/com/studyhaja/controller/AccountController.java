@@ -13,6 +13,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
@@ -109,5 +110,19 @@ public class AccountController {
         accountService.sendSignUpConfirmEmail(account);
 
         return "redirect:/";
+    }
+
+    @GetMapping("/profile/{nickname}")
+    public String viewProfile(@PathVariable String nickname, Model model, @CurrentUser Account account) {
+        Account byNickname = accountRepository.findByNickname(nickname);
+
+        if (byNickname == null) {
+            throw new IllegalArgumentException(nickname + "에 해당하는 사용자가 없습니다.");
+        }
+
+        model.addAttribute(byNickname); // name을 명시하지 않으면 value의 타입의 camel case로 이름을 사용한다.
+        model.addAttribute("isOwner", byNickname.equals(account));
+
+        return "account/profile";
     }
 }
