@@ -5,6 +5,7 @@
         <title>스터디 하자</title>
         <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="/node_modules/cropper/dist/cropper.min.css" />
         <link rel="stylesheet" type="text/css" th:href="@{/css/sign-up.css}" />
         <link rel="stylesheet" type="text/css" th:href="@{/css/profile.css}" />
         <script src="/node_modules/jquery/dist/jquery.min.js"></script>
@@ -50,8 +51,10 @@
                 <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">
-                        <svg data-jdenticon-value="user127" th:data-jdenticon-value="${#authentication.name}" width="24"
-                             height="24" class="rounded border bg-light"></svg>
+                        <svg th:if="${#strings.isEmpty(account?.profileImage)}" th:data-jdenticon-value="${#authentication.name}"
+                             width="24" height="24" class="rounded border bg-light"></svg>
+                        <img th:if="${!#strings.isEmpty(account?.profileImage)}" th:src="${account.profileImage}"
+                             width="24" height="24" class="rounded border"/>
                     </a>
                     <div class="dropdown-menu dropdown-menu-sm-right" aria-labelledby="userDropdown">
                         <h6 class="dropdown-header"><span sec:authentication="name">Username</span></h6>
