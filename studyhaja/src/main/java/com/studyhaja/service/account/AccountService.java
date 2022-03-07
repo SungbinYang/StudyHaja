@@ -3,6 +3,7 @@ package com.studyhaja.service.account;
 import com.studyhaja.domain.account.Account;
 import com.studyhaja.domain.account.SignUpForm;
 import com.studyhaja.domain.account.UserAccount;
+import com.studyhaja.domain.settings.Profile;
 import com.studyhaja.repository.account.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
@@ -104,5 +105,18 @@ public class AccountService implements UserDetailsService {
     public void completeSignUp(Account account) {
         account.completeSignUp();
         login(account);
+    }
+
+    public void updateProfile(Account account, Profile profile) {
+        account.setUrl(profile.getUrl());
+        account.setOccupation(profile.getOccupation());
+        account.setLocation(profile.getLocation());
+        account.setBio(profile.getBio());
+
+        // TODO: 프로필 이미지 수정 로직
+
+        accountRepository.save(account);
+
+        // TODO: 프로필 이미지 수정시 문제사항 해결
     }
 }

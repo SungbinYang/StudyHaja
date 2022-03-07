@@ -460,3 +460,18 @@ create table persistent_logins (username varchar(64) not null, series varchar(64
 
 - 컨트롤러
   * Bio, Link, Occupation, Location 정보만 입력받아서 Account 정보를 수정한다.
+
+## 프로필 수정 처리
+- 정말로 쉬운 폼 처리
+  * 비어있는 값을 허용한다. (기존에 있던 값을 삭제하고 싶을 수도 있기 때문에..)
+  * 중복된 값을 고민하지 않아도 된다.
+  * 확인할 내용은 입력 값의 길이 정도.
+- 폼 처리
+  * 에러가 있는 경우 폼 다시 보여주기.
+    * 에러가 없는 경우
+      * 저장하고,
+      * 프로필 수정 페이지 다시 보여주기. (리다이렉트)
+      * 수정 완료 메시지.
+- 리다이렉트시에 간단한 데이터를 전달하고 싶다면?
+  * RedirectAttributes.addFlashAttribute()
+  * https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/servlet/mvc/support/RedirectAttributes.html

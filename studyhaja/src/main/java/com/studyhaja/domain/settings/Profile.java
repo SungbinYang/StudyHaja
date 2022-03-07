@@ -2,6 +2,7 @@ package com.studyhaja.domain.settings;
 
 import com.studyhaja.domain.account.Account;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * packageName : com.studyhaja.domain.settings
@@ -16,6 +17,7 @@ import lombok.Data;
  */
 
 @Data
+@NoArgsConstructor
 public class Profile {
 
     private String bio; // 프로필 간단한 내 소개
