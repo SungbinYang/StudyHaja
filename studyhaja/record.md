@@ -553,3 +553,14 @@ $("#profile-image-file").change(function(e) {
 - [DataURL](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs) 이란?
   * data: 라는 접두어를 가진 URL로 파일을 문서에 내장 시킬때 사용할 수 있다.
   * 이미지를 DataURL로 저장할 수 있다.
+
+## 패스워드 수정
+- 패스워드 변경 뷰
+- 패스워드 변경
+  * 패스워드 탭 활성화.
+  * 새 패스워드와 새 패스워드 확인의 값이 일치해야 한다.
+  * 패스워드 인코딩 할 것!
+  * 둘 다 최소 8자에서 최대 50자 사이.
+  * 사용자 정보를 변경하는 작업.
+    * 서비스로 위임해서 트랜잭션 안에서 처리해야 한다.
+    * 또는 Detached 상태의 객체를 변경한 다음 Repositoiry의 save를 호출해서 상태 변경 내역을 적용 할 것(Merge)

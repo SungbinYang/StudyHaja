@@ -115,7 +115,11 @@ public class AccountService implements UserDetailsService {
         account.setProfileImage(profile.getProfileImage());
 
         accountRepository.save(account);
+    }
 
-        // TODO: 프로필 이미지 수정시 문제사항 해결
+    public void updatePassword(Account account, String newPassword) {
+        account.setPassword(passwordEncoder.encode(newPassword));
+
+        accountRepository.save(account);
     }
 }
