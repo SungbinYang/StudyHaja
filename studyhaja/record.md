@@ -564,3 +564,5 @@ $("#profile-image-file").change(function(e) {
   * 사용자 정보를 변경하는 작업.
     * 서비스로 위임해서 트랜잭션 안에서 처리해야 한다.
     * 또는 Detached 상태의 객체를 변경한 다음 Repositoiry의 save를 호출해서 상태 변경 내역을 적용 할 것(Merge)
+
+## 패스워드 수정 테스트 
