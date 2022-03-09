@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:replace="fragments.html :: head"></head>
+<body>
+<form th:if="${not #maps.isEmpty( params )}" name="dataForm" th:action="${redirectUri}" th:method="${method}" style="display: none;">
+    <input th:each="key, status : ${params.keySet()}" type="hidden" th:name="${key}" th:value="${params.get(key)}" />
+</form>
+
+<script type="application/javascript" th:src="@{/js/common.js}"></script>
+
+<th:block layout:fragment="script">
+    <script type="application/javascript" th:inline="javascript">
+        /* <![CDATA[ */
+
+        window.onload = function() {
+            let message = /*[[ ${message} ]]*/;
+            if (isEmpty(message) === false) {
+                alert(message);
+            }
+
+            let params = /*[[ ${params} ]]*/;
+            if (isEmpty(params) === false) {
+                document.dataForm.submit();
+            } else {
+                let redirectUri = /*[[ ${redirectUri} ]]*/;
+                location.href = redirectUri;
+            }
+        }
+        /*[- end of onload -]*/
+
+        /* ]]> */
+    </script>
+</th:block>
+</body>
+</html>

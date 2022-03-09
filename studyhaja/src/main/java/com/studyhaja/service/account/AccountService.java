@@ -135,4 +135,14 @@ public class AccountService implements UserDetailsService {
         accountRepository.save(account);
         login(account);
     }
+
+    public void deleteAccount(String nickname) {
+        Account byNickname = accountRepository.findByNickname(nickname);
+
+        if (byNickname == null) {
+            throw new IllegalArgumentException("존재하지 않는 계정입니다.");
+        }
+
+        accountRepository.delete(byNickname);
+    }
 }

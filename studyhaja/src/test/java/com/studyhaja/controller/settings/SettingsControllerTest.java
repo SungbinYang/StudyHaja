@@ -14,8 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -200,6 +199,20 @@ class SettingsControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("account"))
                 .andExpect(model().attributeExists("nicknameForm"));
+    }
+
+    @Test
+    @WithAccount("sungbin")
+    @DisplayName("계정 삭제하기 - 성공")
+    void deleteAccount() throws Exception {
+        this.mockMvc.perform(post("/" + SettingsController.SETTINGS_ACCOUNT_VIEW_NAME + "/delete")
+                        .with(csrf()))
+                .andDo(print())
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/"));
+
+        Account sungbin = accountRepository.findByNickname("sungbin");
+        assertEquals(null, sungbin);
     }
 
 }

@@ -1,6 +1,8 @@
 package com.studyhaja.controller.settings;
 
 import com.studyhaja.annotation.CurrentUser;
+import com.studyhaja.common.Method;
+import com.studyhaja.common.UiUtils;
 import com.studyhaja.domain.account.form.Account;
 import com.studyhaja.domain.settings.form.NicknameForm;
 import com.studyhaja.domain.settings.form.Notifications;
@@ -11,13 +13,13 @@ import com.studyhaja.domain.settings.validator.PasswordFormValidator;
 import com.studyhaja.service.account.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -36,7 +38,7 @@ import javax.validation.Valid;
 
 @Controller
 @RequiredArgsConstructor
-public class SettingsController {
+public class SettingsController extends UiUtils {
 
     static final String SETTINGS_PROFILE_VIEW_NAME = "settings/profile";
 
@@ -151,5 +153,18 @@ public class SettingsController {
         redirectAttributes.addFlashAttribute("message", "닉네임을 수정했습니다.");
 
         return "redirect:/" + SETTINGS_ACCOUNT_VIEW_NAME;
+    }
+
+    @PostMapping("/" + SETTINGS_ACCOUNT_VIEW_NAME + "/delete")
+    public String deleteAccount(@CurrentUser Account account, Model model) {
+        if (account.getNickname() == null) {
+            model.addAttribute(account);
+            return "/" + SETTINGS_ACCOUNT_VIEW_NAME;
+        }
+
+        accountService.deleteAccount(account.getNickname());
+        SecurityContextHolder.clearContext();
+
+        return showMessageWithRedirect("정상적으로 회원탈퇴 처리가 완료되었습니다.", "/", Method.GET, null, model);
     }
 }
