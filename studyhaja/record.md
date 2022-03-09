@@ -576,3 +576,27 @@ $("#profile-image-file").change(function(e) {
   * 특정 웹 서비스 이벤트(스터디 생성, 참가 신청 결과, 참여중인 스터디)에 대한 정보를 이메일로 받을지, 웹 알림 메시지로 받을지 선택하는 기능. 물론 둘 다 받을 수도 있음.
 - 부트스트랩
   * [Form](https://getbootstrap.com/docs/4.4/components/forms/)
+
+## ModelMapper 적용
+- http://modelmapper.org/
+  * 객체의 프로퍼티를 다른 객체의 프로퍼티로 맵핑해주는 유틸리티
+- 의존성 추가
+
+```xml
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+```
+
+- 토크나이저 설정
+
+  ```java
+  modelMapper.getConfiguration()
+    .setSourceNameTokenizer(NameTokenizers.UNDERSCORE)
+    .setDestinationNameTokenizer(NameTokenizers.UNDERSCORE)
+  ```
+  
+  * UNDERSCORE(_)를 사용했을 때에만 nested 객체를 참조하는 것으로 간주하고 그렇지 않은 경우에는 해당 객체의 직속 프로퍼티에 바인딩 한다.
+  * http://modelmapper.org/user-manual/configuration/#matching-strategies

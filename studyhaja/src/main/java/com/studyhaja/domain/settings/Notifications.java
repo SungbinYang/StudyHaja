@@ -1,8 +1,6 @@
 package com.studyhaja.domain.settings;
 
-import com.studyhaja.domain.account.Account;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * packageName : com.studyhaja.domain.settings
@@ -17,7 +15,6 @@ import lombok.NoArgsConstructor;
  */
 
 @Data
-@NoArgsConstructor
 public class Notifications {
 
     private boolean studyCreatedByEmail; // 스터디가 만들어진걸 이메일로 받을것인가?
@@ -31,13 +28,4 @@ public class Notifications {
     private boolean studyUpdatedByEmail; // 스터디 갱산 정보룰 이메일로 받을것인가?
 
     private boolean studyUpdatedByWeb; // 스터디 갱산 정보룰 웹으로 받을것인가?
-
-    public Notifications(Account account) {
-        this.studyCreatedByEmail = account.isStudyCreatedByEmail();
-        this.studyCreatedByWeb = account.isStudyCreatedByWeb();
-        this.studyEnrollmentResultByEmail = account.isStudyEnrollmentResultByEmail();
-        this.studyEnrollmentResultByWeb = account.isStudyEnrollmentResultByWeb();
-        this.studyUpdatedByEmail = account.isStudyUpdatedByEmail();
-        this.studyUpdatedByWeb = account.isStudyUpdatedByWeb();
-    }
 }
