@@ -141,4 +141,28 @@ class SettingsControllerTest {
                 .andExpect(model().attributeExists("passwordForm"));
     }
 
+    @Test
+    @WithAccount("sungbin")
+    @DisplayName("알림 수정 폼")
+    void updateNotificationsForm() throws Exception {
+        this.mockMvc.perform(get("/" + SettingsController.SETTINGS_NOTIFICATIONS_VIEW_NAME))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("account"))
+                .andExpect(model().attributeExists("notifications"));
+    }
+
+    @Test
+    @WithAccount("sungbin")
+    @DisplayName("알림 수정 - 입력 값 정상")
+    void updateNotification() throws Exception {
+        this.mockMvc.perform(post("/" + SettingsController.SETTINGS_NOTIFICATIONS_VIEW_NAME)
+                        .param("studyCreatedByWeb", "true")
+                        .with(csrf()))
+                .andDo(print())
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/" + SettingsController.SETTINGS_NOTIFICATIONS_VIEW_NAME))
+                .andExpect(flash().attributeExists("message"));
+    }
+
 }

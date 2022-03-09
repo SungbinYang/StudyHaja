@@ -60,15 +60,15 @@ public class Account {
 
     private boolean studyCreatedByEmail; // 스터디가 만들어진걸 이메일로 받을것인가?
 
-    private boolean studyCreatedByWeb; // 스터디가 만들어진걸 웹으로 받을것인가?
+    private boolean studyCreatedByWeb = true; // 스터디가 만들어진걸 웹으로 받을것인가?
 
     private boolean studyEnrollmentResultByEmail; // 스터디 등록 결과를 이메일로 받을것인가?
 
-    private boolean studyEnrollmentResultByWeb; // 스터디 등록 결과를 웹으로 받을것인가?
+    private boolean studyEnrollmentResultByWeb = true; // 스터디 등록 결과를 웹으로 받을것인가?
 
     private boolean studyUpdatedByEmail; // 스터디 갱산 정보룰 이메일로 받을것인가?
 
-    private boolean studyUpdatedByWeb; // 스터디 갱산 정보룰 웹으로 받을것인가?
+    private boolean studyUpdatedByWeb = true; // 스터디 갱산 정보룰 웹으로 받을것인가?
 
     public void generateEmailCheckToken() {
         this.emailCheckToken = UUID.randomUUID().toString();

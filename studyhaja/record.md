@@ -565,4 +565,14 @@ $("#profile-image-file").change(function(e) {
     * 서비스로 위임해서 트랜잭션 안에서 처리해야 한다.
     * 또는 Detached 상태의 객체를 변경한 다음 Repositoiry의 save를 호출해서 상태 변경 내역을 적용 할 것(Merge)
 
-## 패스워드 수정 테스트 
+## 패스워드 수정 테스트
+
+## 알림 설정
+- 알림 설정 뷰
+
+![](./img08.png)
+
+- 알림 설정
+  * 특정 웹 서비스 이벤트(스터디 생성, 참가 신청 결과, 참여중인 스터디)에 대한 정보를 이메일로 받을지, 웹 알림 메시지로 받을지 선택하는 기능. 물론 둘 다 받을 수도 있음.
+- 부트스트랩
+  * [Form](https://getbootstrap.com/docs/4.4/components/forms/)

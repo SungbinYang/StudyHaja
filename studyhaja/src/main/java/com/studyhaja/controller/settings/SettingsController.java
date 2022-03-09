@@ -2,6 +2,7 @@ package com.studyhaja.controller.settings;
 
 import com.studyhaja.annotation.CurrentUser;
 import com.studyhaja.domain.account.Account;
+import com.studyhaja.domain.settings.Notifications;
 import com.studyhaja.domain.settings.PasswordForm;
 import com.studyhaja.domain.settings.PasswordFormValidator;
 import com.studyhaja.domain.settings.Profile;
@@ -37,6 +38,8 @@ public class SettingsController {
     static final String SETTINGS_PROFILE_VIEW_NAME = "settings/profile";
 
     static final String SETTINGS_PASSWORD_VIEW_NAME = "settings/password";
+
+    static final String SETTINGS_NOTIFICATIONS_VIEW_NAME = "settings/notifications";
 
     private final AccountService accountService;
 
@@ -88,5 +91,28 @@ public class SettingsController {
         redirectAttributes.addFlashAttribute("message", "패스워드를 변경했습니다.");
 
         return "redirect:/" + SETTINGS_PASSWORD_VIEW_NAME;
+    }
+
+    @GetMapping("/" + SETTINGS_NOTIFICATIONS_VIEW_NAME)
+    public String updateNotificationsForm(@CurrentUser Account account, Model model) {
+        model.addAttribute(account);
+        model.addAttribute(new Notifications(account));
+
+        return SETTINGS_NOTIFICATIONS_VIEW_NAME;
+    }
+
+    @PostMapping("/" + SETTINGS_NOTIFICATIONS_VIEW_NAME)
+    public String updateNotifications(@CurrentUser Account account, @Valid Notifications notifications, Errors errors, Model model,
+                                      RedirectAttributes redirectAttributes) {
+        if (errors.hasErrors()) {
+            model.addAttribute(account);
+
+            return SETTINGS_NOTIFICATIONS_VIEW_NAME;
+        }
+
+        accountService.updateNotifications(account, notifications);
+        redirectAttributes.addFlashAttribute("message", "알림 설정을 변경했습니다.");
+
+        return "redirect:/" + SETTINGS_NOTIFICATIONS_VIEW_NAME;
     }
 }
