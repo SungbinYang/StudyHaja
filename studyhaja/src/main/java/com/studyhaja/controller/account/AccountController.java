@@ -1,9 +1,9 @@
 package com.studyhaja.controller.account;
 
 import com.studyhaja.annotation.CurrentUser;
-import com.studyhaja.domain.account.Account;
-import com.studyhaja.domain.account.SignUpForm;
-import com.studyhaja.domain.account.SignUpFormValidator;
+import com.studyhaja.domain.account.form.Account;
+import com.studyhaja.domain.account.form.SignUpForm;
+import com.studyhaja.domain.account.validator.SignUpFormValidator;
 import com.studyhaja.repository.account.AccountRepository;
 import com.studyhaja.service.account.AccountService;
 import lombok.RequiredArgsConstructor;

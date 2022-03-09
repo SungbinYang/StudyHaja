@@ -1,6 +1,6 @@
 package com.studyhaja.repository.account;
 
-import com.studyhaja.domain.account.Account;
+import com.studyhaja.domain.account.form.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 

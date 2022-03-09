@@ -1,7 +1,7 @@
 package com.studyhaja.controller.settings;
 
 import com.studyhaja.common.WithAccount;
-import com.studyhaja.domain.account.Account;
+import com.studyhaja.domain.account.form.Account;
 import com.studyhaja.repository.account.AccountRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
@@ -163,6 +163,43 @@ class SettingsControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/" + SettingsController.SETTINGS_NOTIFICATIONS_VIEW_NAME))
                 .andExpect(flash().attributeExists("message"));
+    }
+
+    @Test
+    @WithAccount("sungbin")
+    @DisplayName("닉네임 수정 폼")
+    void updateAccountForm() throws Exception {
+        this.mockMvc.perform(get("/" + SettingsController.SETTINGS_ACCOUNT_VIEW_NAME))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("account"))
+                .andExpect(model().attributeExists("nicknameForm"));
+    }
+
+    @Test
+    @WithAccount("sungbin")
+    @DisplayName("닉네임 수정하기 - 입력값 정상")
+    void updateAccount() throws Exception {
+        this.mockMvc.perform(post("/" + SettingsController.SETTINGS_ACCOUNT_VIEW_NAME)
+                        .param("nickname", "robert")
+                        .with(csrf()))
+                .andDo(print())
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/" + SettingsController.SETTINGS_ACCOUNT_VIEW_NAME))
+                .andExpect(flash().attributeExists("message"));
+    }
+
+    @Test
+    @WithAccount("sungbin")
+    @DisplayName("닉네임 수정하기 - 입력값 에러")
+    void updateAccount_error() throws Exception {
+        this.mockMvc.perform(post("/" + SettingsController.SETTINGS_ACCOUNT_VIEW_NAME)
+                        .param("nickname", "¯@_(ツ)_/¯")
+                        .with(csrf()))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("account"))
+                .andExpect(model().attributeExists("nicknameForm"));
     }
 
 }

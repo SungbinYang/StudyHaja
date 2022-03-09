@@ -1,7 +1,7 @@
 package com.studyhaja.controller.main;
 
 import com.studyhaja.annotation.CurrentUser;
-import com.studyhaja.domain.account.Account;
+import com.studyhaja.domain.account.form.Account;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

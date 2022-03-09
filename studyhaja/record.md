@@ -556,6 +556,9 @@ $("#profile-image-file").change(function(e) {
 
 ## 패스워드 수정
 - 패스워드 변경 뷰
+
+![](./img07.png)
+
 - 패스워드 변경
   * 패스워드 탭 활성화.
   * 새 패스워드와 새 패스워드 확인의 값이 일치해야 한다.
@@ -600,3 +603,12 @@ $("#profile-image-file").change(function(e) {
   
   * UNDERSCORE(_)를 사용했을 때에만 nested 객체를 참조하는 것으로 간주하고 그렇지 않은 경우에는 해당 객체의 직속 프로퍼티에 바인딩 한다.
   * http://modelmapper.org/user-manual/configuration/#matching-strategies
+
+## 닉네임 수정
+- 계정 관리 뷰
+
+![](./img09.png)
+
+- 닉네임 수정
+  * 닉네임은 특정 패턴("^[ㄱ-ㅎ가-힣a-z0-9_-]{3,20}$")의 문자열만 지원 함.
+  * 중복 닉네임 확인.

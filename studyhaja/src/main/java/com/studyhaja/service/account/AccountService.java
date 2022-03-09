@@ -1,10 +1,10 @@
 package com.studyhaja.service.account;
 
-import com.studyhaja.domain.account.Account;
-import com.studyhaja.domain.account.SignUpForm;
-import com.studyhaja.domain.account.UserAccount;
-import com.studyhaja.domain.settings.Notifications;
-import com.studyhaja.domain.settings.Profile;
+import com.studyhaja.domain.account.form.Account;
+import com.studyhaja.domain.account.form.SignUpForm;
+import com.studyhaja.domain.account.form.UserAccount;
+import com.studyhaja.domain.settings.form.Notifications;
+import com.studyhaja.domain.settings.form.Profile;
 import com.studyhaja.repository.account.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -127,5 +127,12 @@ public class AccountService implements UserDetailsService {
         modelMapper.map(notifications, account);
 
         accountRepository.save(account);
+    }
+
+    public void updateNickname(Account account, String nickname) {
+        account.setNickname(nickname);
+
+        accountRepository.save(account);
+        login(account);
     }
 }

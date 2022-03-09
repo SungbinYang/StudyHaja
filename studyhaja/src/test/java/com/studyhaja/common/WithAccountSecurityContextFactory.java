@@ -1,6 +1,6 @@
 package com.studyhaja.common;
 
-import com.studyhaja.domain.account.SignUpForm;
+import com.studyhaja.domain.account.form.SignUpForm;
 import com.studyhaja.service.account.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

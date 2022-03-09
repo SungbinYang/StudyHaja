@@ -1,4 +1,4 @@
-package com.studyhaja.domain.account;
+package com.studyhaja.domain.account.form;
 
 import lombok.Getter;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

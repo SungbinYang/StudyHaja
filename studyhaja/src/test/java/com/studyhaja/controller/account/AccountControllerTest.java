@@ -1,7 +1,7 @@
 package com.studyhaja.controller.account;
 
 import com.studyhaja.mail.ConsoleMailSender;
-import com.studyhaja.domain.account.Account;
+import com.studyhaja.domain.account.form.Account;
 import com.studyhaja.repository.account.AccountRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
