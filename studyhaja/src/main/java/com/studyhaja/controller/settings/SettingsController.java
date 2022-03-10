@@ -48,6 +48,8 @@ public class SettingsController extends UiUtils {
 
     static final String SETTINGS_ACCOUNT_VIEW_NAME = "settings/account";
 
+    static final String SETTINGS_TAGS_VIEW_NAME = "settings/tags";
+
     private final AccountService accountService;
 
     private final ModelMapper modelMapper;
@@ -166,5 +168,12 @@ public class SettingsController extends UiUtils {
         SecurityContextHolder.clearContext();
 
         return showMessageWithRedirect("정상적으로 회원탈퇴 처리가 완료되었습니다.", "/", Method.GET, null, model);
+    }
+
+    @GetMapping("/" + SETTINGS_TAGS_VIEW_NAME)
+    public String updateTags(@CurrentUser Account account, Model model) {
+        model.addAttribute(account);
+
+        return SETTINGS_TAGS_VIEW_NAME;
     }
 }

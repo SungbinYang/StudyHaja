@@ -649,3 +649,25 @@ $("#profile-image-file").change(function(e) {
   * 조인 (join) 테이블을 사용해서 다대다 관계를 표현.
   * Account_Tag에서 Account의 PK 참조.
   * Account_Tag에서 Tag의 PK 참조.
+
+## 관심 주제 등록 뷰
+- 태그 등록 뷰
+
+![](./img12.png)
+
+- SQL 확인
+
+```properties
+# 개발할 때에만 create-drop 또는 update를 사용하고 운영 환경에서는 validate를 사용합니다.
+spring.jpa.hibernate.ddl-auto=create-drop
+
+# 개발시 SQL 로깅을 하여 어떤 값으로 어떤 SQL이 실행되는지 확인합니다.
+spring.jpa.properties.hibernate.format_sql=true
+logging.level.org.hibernate.SQL=DEBUG
+logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE
+```
+
+- 프론트엔트 라이브러리
+  * [Tagify](https://github.com/yairEO/tagify)
+  * npm install @yaireo/tagify
+  * 예제) https://yaireo.github.io/tagify/
