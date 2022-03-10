@@ -10,6 +10,9 @@ import com.studyhaja.domain.settings.form.PasswordForm;
 import com.studyhaja.domain.settings.form.Profile;
 import com.studyhaja.domain.settings.validator.NicknameValidator;
 import com.studyhaja.domain.settings.validator.PasswordFormValidator;
+import com.studyhaja.domain.tag.form.Tag;
+import com.studyhaja.domain.tag.form.TagForm;
+import com.studyhaja.repository.tag.TagRepository;
 import com.studyhaja.service.account.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -23,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 /**
  * packageName : com.studyhaja.controller.settings
@@ -55,6 +59,8 @@ public class SettingsController extends UiUtils {
     private final ModelMapper modelMapper;
 
     private final NicknameValidator nicknameValidator;
+
+    private final TagRepository tagRepository;
 
     @InitBinder("passwordForm")
     public void passwordFormInitBinder(WebDataBinder webDataBinder) {
@@ -175,5 +181,21 @@ public class SettingsController extends UiUtils {
         model.addAttribute(account);
 
         return SETTINGS_TAGS_VIEW_NAME;
+    }
+
+    @ResponseBody
+    @PostMapping("/" + SETTINGS_TAGS_VIEW_NAME + "/add")
+    public ResponseEntity addTags(@CurrentUser Account account, @RequestBody TagForm tagForm) {
+        String title = tagForm.getTagTitle();
+
+        Tag tag = tagRepository.findByTitle(title);
+
+        if (tag == null) {
+            tag = tagRepository.save(Tag.builder().title(tagForm.getTagTitle()).build());
+        }
+
+        accountService.addTag(account, tag);
+
+        return ResponseEntity.ok().build();
     }
 }

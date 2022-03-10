@@ -671,3 +671,31 @@ logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE
   * [Tagify](https://github.com/yairEO/tagify)
   * npm install @yaireo/tagify
   * 예제) https://yaireo.github.io/tagify/
+
+## 관심 주제 등록 기능 구현
+- 타임리프 자바스크립트 템플릿
+
+  ```html
+  <script type="application/javascript" th:inline="javascript">
+  </script>
+  ```
+  
+  * https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#javascript-inlining
+  * Escaped: [[${variable}]]
+  * Unescaped: [(${variable})]
+  * 네추럴 템플릿: /*[[${variable}]]*/ null;
+- Ajax 호출시 CSRF 토큰을 전달 하는 방법
+  * https://docs.spring.io/spring-security/site/docs/current/reference/html5/#servlet-csrf-include-ajax
+- 타임리프 자바스크립트 템플릿으로 Ajax 호출시 CSRF 토큰 설정
+
+```html
+    <script type="application/javascript" th:inline="javascript">
+        $(function() {
+            var csrfToken = /*[[${_csrf.token}]]*/ null;
+            var csrfHeader = /*[[${_csrf.headerName}]]*/ null;
+            $(document).ajaxSend(function (e, xhr, options) {
+                xhr.setRequestHeader(csrfHeader, csrfToken);
+            });
+        });
+    </script>
+```

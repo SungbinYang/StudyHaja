@@ -1,4 +1,4 @@
-package com.studyhaja.domain.tag;
+package com.studyhaja.domain.tag.form;
 
 import lombok.*;
 

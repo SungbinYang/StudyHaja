@@ -5,6 +5,7 @@ import com.studyhaja.domain.account.form.SignUpForm;
 import com.studyhaja.domain.account.form.UserAccount;
 import com.studyhaja.domain.settings.form.Notifications;
 import com.studyhaja.domain.settings.form.Profile;
+import com.studyhaja.domain.tag.form.Tag;
 import com.studyhaja.repository.account.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * packageName : com.studyhaja.service
@@ -156,5 +158,10 @@ public class AccountService implements UserDetailsService {
         mailMessage.setText("/login-by-email?token=" + account.getEmailCheckToken() + "&email=" + account.getEmail());
 
         javaMailSender.send(mailMessage);
+    }
+
+    public void addTag(Account account, Tag tag) {
+        Optional<Account> byId = accountRepository.findById(account.getId());
+        byId.ifPresent(a -> a.getTags().add(tag));
     }
 }

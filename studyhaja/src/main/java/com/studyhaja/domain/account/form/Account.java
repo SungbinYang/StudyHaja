@@ -1,6 +1,6 @@
 package com.studyhaja.domain.account.form;
 
-import com.studyhaja.domain.tag.Tag;
+import com.studyhaja.domain.tag.form.Tag;
 import lombok.*;
 
 import javax.persistence.*;
