@@ -699,3 +699,14 @@ logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE
         });
     </script>
 ```
+
+## 관심 주제 조회
+- 타임리프 #strings 유틸리티
+
+  ```html
+  <input id="tags" type="text" name="tags" th:value="${#strings.listJoin(tags, ',')}"
+                                 class="tagify-outside" aria-describedby="tagHelp"/>
+  ```
+
+  * 그밖에도 다양한 유틸리티 객체가 있으니 레퍼런스를 참고하세요.
+  * https://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html#expression-utility-objects
