@@ -1,5 +1,7 @@
 package com.studyhaja.controller.settings;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.studyhaja.annotation.CurrentUser;
 import com.studyhaja.common.Method;
 import com.studyhaja.common.UiUtils;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -62,6 +65,8 @@ public class SettingsController extends UiUtils {
     private final NicknameValidator nicknameValidator;
 
     private final TagRepository tagRepository;
+
+    private final ObjectMapper objectMapper;
 
     @InitBinder("passwordForm")
     public void passwordFormInitBinder(WebDataBinder webDataBinder) {
@@ -178,10 +183,13 @@ public class SettingsController extends UiUtils {
     }
 
     @GetMapping("/" + SETTINGS_TAGS_VIEW_NAME)
-    public String updateTags(@CurrentUser Account account, Model model) {
+    public String updateTags(@CurrentUser Account account, Model model) throws JsonProcessingException {
         model.addAttribute(account);
         Set<Tag> tags = accountService.getTags(account);
         model.addAttribute("tags", tags.stream().map(Tag::getTitle).collect(Collectors.toList()));
+
+        List<String> allTags = tagRepository.findAll().stream().map(Tag::getTitle).toList();
+        model.addAttribute("whiteList", objectMapper.writeValueAsString(allTags));
 
         return SETTINGS_TAGS_VIEW_NAME;
     }

@@ -27,6 +27,7 @@ $(function () {
 
     let tagify = new Tagify(tagInput, {
         pattern: /^.{0,20}$/,
+        whitelist: JSON.parse(document.querySelector('#whiteList').textContent),
         dropdown: {
             enabled: 1,
         }

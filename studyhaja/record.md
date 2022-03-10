@@ -715,3 +715,11 @@ logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE
 - 태그 삭제
   * DB에 없는 태그라면, Bad Request로 응답하고
   * DB에 있는 태그라면  Account에서 삭제 (DB에서 태그 정보를 삭제 하는게 아니라 연관 관계만 삭제하는 것임)
+
+## 관심 주제 자동완성
+- 기존의 태그 정보 자동완성 목록으로 제공하는 기능
+  * Tagify의 whitelist를 사용한다.
+  * https://yaireo.github.io/tagify/#section-manual-suggestions
+- ObjectMapper
+  * 객체를 JSON으로 JSON을 객체로 변환할 때 사용하는 유틸리티
+  * https://github.com/FasterXML/jackson
