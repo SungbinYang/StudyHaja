@@ -1,9 +1,11 @@
 package com.studyhaja.domain.account.form;
 
+import com.studyhaja.domain.tag.Tag;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -69,6 +71,9 @@ public class Account {
     private boolean studyUpdatedByEmail; // 스터디 갱산 정보룰 이메일로 받을것인가?
 
     private boolean studyUpdatedByWeb = true; // 스터디 갱산 정보룰 웹으로 받을것인가?
+
+    @ManyToMany
+    private Set<Tag> tags;
 
     public void generateEmailCheckToken() {
         this.emailCheckToken = UUID.randomUUID().toString();

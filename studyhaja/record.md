@@ -629,3 +629,23 @@ $("#profile-image-file").change(function(e) {
 - 지역 정보 데이터 초기화
 - 지역 정보 등록
 - 지역 정보 삭제
+
+## 관심 주제 도메인
+- 관심 주제 (Tag)는 엔티티인가 밸류인가?
+  * 엔티티다. 왜? 태그 독자적인 라이프사이클이 있고 다른 곳(Study)에서도 참조할테니까.
+- Tag 엔티티
+  * Id
+  * Title (unique)
+- 객체 관점에서의 관계
+
+  ![](./img10.png)
+
+  * ManyToMany
+  * Account에서 Tag를 참조 (단방향)
+- 릴레이션 DB 관점에서의 관계
+
+  ![](./img11.png)
+
+  * 조인 (join) 테이블을 사용해서 다대다 관계를 표현.
+  * Account_Tag에서 Account의 PK 참조.
+  * Account_Tag에서 Tag의 PK 참조.
