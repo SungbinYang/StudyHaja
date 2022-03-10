@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -191,7 +190,6 @@ public class SettingsController extends UiUtils {
     @PostMapping("/" + SETTINGS_TAGS_VIEW_NAME + "/add")
     public ResponseEntity addTags(@CurrentUser Account account, @RequestBody TagForm tagForm) {
         String title = tagForm.getTagTitle();
-
         Tag tag = tagRepository.findByTitle(title);
 
         if (tag == null) {
@@ -199,6 +197,21 @@ public class SettingsController extends UiUtils {
         }
 
         accountService.addTag(account, tag);
+
+        return ResponseEntity.ok().build();
+    }
+
+    @ResponseBody
+    @PostMapping("/" + SETTINGS_TAGS_VIEW_NAME + "/remove")
+    public ResponseEntity removeTags(@CurrentUser Account account, @RequestBody TagForm tagForm) {
+        String title = tagForm.getTagTitle();
+        Tag tag = tagRepository.findByTitle(title);
+
+        if (tag == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        accountService.removeTag(account, tag);
 
         return ResponseEntity.ok().build();
     }

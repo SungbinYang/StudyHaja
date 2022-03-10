@@ -710,3 +710,8 @@ logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE
 
   * 그밖에도 다양한 유틸리티 객체가 있으니 레퍼런스를 참고하세요.
   * https://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html#expression-utility-objects
+
+## 관심 주제 삭제
+- 태그 삭제
+  * DB에 없는 태그라면, Bad Request로 응답하고
+  * DB에 있는 태그라면  Account에서 삭제 (DB에서 태그 정보를 삭제 하는게 아니라 연관 관계만 삭제하는 것임)
