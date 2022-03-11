@@ -832,3 +832,28 @@ spring.datasource.password=testpass
   * https://www.pgadmin.org/
   * https://sites.google.com/site/tadpolefordb/
   * PSQL
+
+## SMTP 설정
+- 구글 Gmail을 SMTP 서버로 사용하기
+  * https://support.google.com/mail/answer/185833
+  * App 패스워드 발급 받을 것
+
+- application-dev.properties 설정
+
+```properties
+spring.mail.host=smtp.gmail.com
+spring.mail.port=587
+# 자신의 이메일
+spring.mail.username=
+# 인증 키
+spring.mail.password=
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.timeout=5000
+spring.mail.properties.mail.smtp.starttls.enable=true
+```
+
+- 대체 서비스
+  * https://sendgrid.com/
+  * https://www.mailgun.com/
+  * https://aws.amazon.com/ses/
+  * https://gsuite.google.com/
