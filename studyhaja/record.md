@@ -745,3 +745,24 @@ class SettingsControllerTest {
 ...
 }
 ```
+
+## 지역 도메인
+- 지역(zone)도 역시 밸류가 아닌 엔티티!
+- Zone
+  * City (영문 도시 이름)
+  * LocalNameOfCity (한국어 도시 이름)
+  * Province (주 이름, nullable)
+- Account와 Zone의 객체 지향적인 관계
+
+  ![](./img13.png)
+
+  * 다대다 (@ManyToMany) 단방향 관계
+- Account와 Zone의 관계형 관계
+
+  ![](./img14.png)
+
+  * 조인 테이블을 사용한 두개의 1대다 관계.
+- 지역 데이터 초기화
+  * 위키 피디아 데이터 참조
+  * https://en.wikipedia.org/wiki/List_of_cities_in_South_Korea
+  * 데이터를 CVS로 옮기고 초기화 하기
