@@ -867,3 +867,42 @@ spring.mail.properties.mail.smtp.starttls.enable=true
 - EmailService 인터페이스 구현체
   * ConsoleEmailService: 콘솔 출력
   * HtmlEmailService: JavaMailSender를 사용해서 HTML로 이메일 전송
+
+## HTML 이메일 전송하기
+- 타임리프 템플릿으로 이메일 템플릿 작성
+
+```html
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>스터디올래</title>
+</head>
+<body>
+<div>
+  <p class="lead">안녕하세요, <span th:text="${nickname}"></span>님</p>
+
+  <h2 th:text="${message}">메시지</h2>
+
+  <div>
+    <a th:href="@{${host} + ${link}}" th:text="${linkName}">link name</a>
+    <p>링크를 동작하지 않는다면 URL 복사해서 사용하는 웹 브라우저에 붙여넣으세요.</p>
+    <small th:text="${host + link}"></small>
+  </div>
+</div>
+<footer>
+  <small class="d-block mb-3 text-muted">스터디올래&copy; 2020</small>
+</footer>
+</body>
+</html>
+```
+
+- 템플릿 엔진으로 HTML 본문 채워 넣기
+  * TemplateEngine
+  * Context
+- 애플리케이션 설정 추가
+  * AppProperties 추가
+
+```properties
+app.host = http://localhost:8080
+```

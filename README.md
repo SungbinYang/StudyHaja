@@ -68,3 +68,4 @@
 - 인텔리J 데이터베이스 탭
 - SMTP 설정
 - EmailService 추상화
+- HTML 이메일 전송하기
