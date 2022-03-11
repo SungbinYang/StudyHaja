@@ -25,7 +25,7 @@ import java.io.InputStream;
 
 @Slf4j
 @Component
-@Profile("local")
+@Profile({"local", "dev"})
 public class ConsoleMailSender implements JavaMailSender {
 
     @Override

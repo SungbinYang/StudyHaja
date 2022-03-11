@@ -786,3 +786,37 @@ let tagify = new Tagify(tagInput, {
     } // map tags
 });
 ```
+
+## PostgreSQL 설치 및 설정
+- https://www.postgresql.org/download/
+  * OS에 따라 적절한 배포판 선택해서 설치.
+  * 설치 과정은 생략.
+- 설치 이후에 할 일
+  * psql에 접속할 것!
+  * 윈도 사용자 (https://www.postgresqltutorial.com/connect-to-postgresql-database/)
+  * 유닉스 계열 사용자
+    * 커맨드 창에서 psql 입력
+- DB와 유저(role) 만들고 유저에게 권한 할당하기
+
+```bash
+(base)  ~   master ±  psql
+psql (12.10)
+Type "help" for help.
+
+rovert=# create database testdb;
+CREATE DATABASE
+rovert=# create user testuser with encrypted password 'testpass';
+CREATE ROLE
+rovert=# grant all privileges on database testdb to testuser;
+GRANT
+rovert=#
+```
+
+- application-dev.properties에 DB 정보 설정
+  * dev 프로파일(Profile)용 설정 파일
+
+```properties
+spring.datasource.url=jdbc:postgresql://localhost:5432/testdb
+spring.datasource.username=testuser
+spring.datasource.password=testpass
+```
