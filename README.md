@@ -67,3 +67,4 @@
 - PostgreSQL 설치 및 설정
 - 인텔리J 데이터베이스 탭
 - SMTP 설정
+- EmailService 추상화
