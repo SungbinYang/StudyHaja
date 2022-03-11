@@ -1,6 +1,6 @@
 package com.studyhaja.controller.account;
 
-import com.studyhaja.annotation.CurrentUser;
+import com.studyhaja.annotation.CurrentAccount;
 import com.studyhaja.domain.account.form.Account;
 import com.studyhaja.domain.account.form.SignUpForm;
 import com.studyhaja.domain.account.validator.SignUpFormValidator;
@@ -91,14 +91,14 @@ public class AccountController {
     }
 
     @GetMapping("/check-email")
-    public String checkEmail(@CurrentUser Account account, Model model) {
+    public String checkEmail(@CurrentAccount Account account, Model model) {
         model.addAttribute("email", account.getEmail());
 
         return "account/check-email";
     }
 
     @GetMapping("/resend-confirm-email")
-    public String resendCheckEmail(@CurrentUser Account account, Model model) {
+    public String resendCheckEmail(@CurrentAccount Account account, Model model) {
         if (!account.canSendConfirmEmail()) {
             model.addAttribute("error", "인증 이메일은 1시간에 한번만 전송할 수 있습니다.");
             model.addAttribute("email", account.getEmail());
@@ -113,7 +113,7 @@ public class AccountController {
     }
 
     @GetMapping("/profile/{nickname}")
-    public String viewProfile(@PathVariable String nickname, Model model, @CurrentUser Account account) {
+    public String viewProfile(@PathVariable String nickname, Model model, @CurrentAccount Account account) {
         Account byNickname = accountRepository.findByNickname(nickname);
 
         if (byNickname == null) {

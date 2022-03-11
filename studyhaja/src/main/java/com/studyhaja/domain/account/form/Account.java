@@ -1,6 +1,7 @@
 package com.studyhaja.domain.account.form;
 
 import com.studyhaja.domain.tag.form.Tag;
+import com.studyhaja.domain.zone.form.Zone;
 import lombok.*;
 
 import javax.persistence.*;
@@ -75,6 +76,9 @@ public class Account {
 
     @ManyToMany
     private Set<Tag> tags = new HashSet<>();
+
+    @ManyToMany
+    private Set<Zone> zones = new HashSet<>();
 
     public void generateEmailCheckToken() {
         this.emailCheckToken = UUID.randomUUID().toString();

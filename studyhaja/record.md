@@ -766,3 +766,23 @@ class SettingsControllerTest {
   * 위키 피디아 데이터 참조
   * https://en.wikipedia.org/wiki/List_of_cities_in_South_Korea
   * 데이터를 CVS로 옮기고 초기화 하기
+
+##  지역 정보 추가/삭제/테스트
+- 주요 활동 지역
+
+  ![](./img15.png)
+
+  * 태그 관리와 차이점은 미리 제공하는 데이터에서만 선택할 수 있다는 점.
+- 기존의 지역 정보 자동완성 목록에서만 선택 가능하다.
+  * Tagify의 whitelist를 사용한다.
+  * https://yaireo.github.io/tagify/#section-textarea
+
+```javascript
+let tagify = new Tagify(tagInput, {
+    enforceWhitelist: true,
+    whitelist: JSON.parse(document.querySelector("#whitelist").textContent),
+    dropdown : {
+        enabled: 1, // suggest tags after a single character input
+    } // map tags
+});
+```

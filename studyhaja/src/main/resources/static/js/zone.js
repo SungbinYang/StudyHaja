@@ -8,8 +8,8 @@ $(function () {
             },
             contentType: 'application/json; charset=utf-8',
             method: 'POST',
-            url: '/settings/tags' + url,
-            data: JSON.stringify({'tagTitle': tagTitle})
+            url: '/settings/zones' + url,
+            data: JSON.stringify({'zoneName': tagTitle})
         }).done(function (data, status) {
             console.log('${data} and status is ${status}');
         });
@@ -26,7 +26,7 @@ $(function () {
     let tagInput = document.querySelector('#tags');
 
     let tagify = new Tagify(tagInput, {
-        pattern: /^.{0,20}$/,
+        enforceWhitelist: true,
         whitelist: JSON.parse(document.querySelector('#whitelist').textContent),
         dropdown: {
             enabled: 1,
