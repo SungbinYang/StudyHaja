@@ -820,3 +820,15 @@ spring.datasource.url=jdbc:postgresql://localhost:5432/testdb
 spring.datasource.username=testuser
 spring.datasource.password=testpass
 ```
+
+## 인텔리J 데이터베이스 탭
+- 데이터베이스 탭 사용하기
+  * 스키마 및 데이터 조작
+  * 쿼리 실행
+
+  ![](./img16.png)
+
+- 대체제
+  * https://www.pgadmin.org/
+  * https://sites.google.com/site/tadpolefordb/
+  * PSQL
