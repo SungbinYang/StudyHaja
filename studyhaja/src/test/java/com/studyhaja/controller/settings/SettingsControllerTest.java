@@ -1,16 +1,23 @@
 package com.studyhaja.controller.settings;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.studyhaja.common.WithAccount;
 import com.studyhaja.domain.account.form.Account;
+import com.studyhaja.domain.tag.form.Tag;
+import com.studyhaja.domain.tag.form.TagForm;
 import com.studyhaja.repository.account.AccountRepository;
+import com.studyhaja.repository.tag.TagRepository;
+import com.studyhaja.service.account.AccountService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -30,6 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * 2022/03/07       rovert         최초 생성
  */
 
+@Transactional
 @SpringBootTest
 @AutoConfigureMockMvc
 class SettingsControllerTest {
@@ -42,6 +50,15 @@ class SettingsControllerTest {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @Autowired
+    private TagRepository tagRepository;
+
+    @Autowired
+    private AccountService accountService;
 
     @AfterEach
     void after() {
@@ -208,11 +225,64 @@ class SettingsControllerTest {
         this.mockMvc.perform(post("/" + SettingsController.SETTINGS_ACCOUNT_VIEW_NAME + "/delete")
                         .with(csrf()))
                 .andDo(print())
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/"));
+                .andExpect(status().isOk());
 
         Account sungbin = accountRepository.findByNickname("sungbin");
         assertEquals(null, sungbin);
+    }
+
+    @Test
+    @WithAccount("sungbin")
+    @DisplayName("태그 수정 폼")
+    void updateTagsForm() throws Exception {
+        this.mockMvc.perform(get("/" + SettingsController.SETTINGS_TAGS_VIEW_NAME))
+                .andDo(print())
+                .andExpect(view().name(SettingsController.SETTINGS_TAGS_VIEW_NAME))
+                .andExpect(model().attributeExists("account"))
+                .andExpect(model().attributeExists("whiteList"))
+                .andExpect(model().attributeExists("tags"));
+    }
+
+    @Test
+    @WithAccount("sungbin")
+    @DisplayName("계정에 태그 추가")
+    void addTag() throws Exception {
+        TagForm tagForm = new TagForm();
+        tagForm.setTagTitle("newTag");
+
+        this.mockMvc.perform(post("/" + SettingsController.SETTINGS_TAGS_VIEW_NAME + "/add")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(tagForm))
+                        .with(csrf()))
+                .andDo(print())
+                .andExpect(status().isOk());
+
+        Tag newTag = tagRepository.findByTitle("newTag");
+        assertNotNull(newTag);
+        assertTrue(accountRepository.findByNickname("sungbin").getTags().contains(newTag));
+    }
+
+    @Test
+    @WithAccount("sungbin")
+    @DisplayName("계정에 태그 삭제")
+    void removeTag() throws Exception {
+        Account sungbin = accountRepository.findByNickname("sungbin");
+        Tag newTag = tagRepository.save(Tag.builder().title("newTag").build());
+        accountService.addTag(sungbin, newTag);
+
+        assertTrue(sungbin.getTags().contains(newTag));
+
+        TagForm tagForm = new TagForm();
+        tagForm.setTagTitle("newTag");
+
+        this.mockMvc.perform(post("/" + SettingsController.SETTINGS_TAGS_VIEW_NAME + "/remove")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(tagForm))
+                        .with(csrf()))
+                .andDo(print())
+                .andExpect(status().isOk());
+
+        assertFalse(accountRepository.findByNickname("sungbin").getTags().contains(newTag));
     }
 
 }

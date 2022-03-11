@@ -723,3 +723,25 @@ logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE
 - ObjectMapper
   * 객체를 JSON으로 JSON을 객체로 변환할 때 사용하는 유틸리티
   * https://github.com/FasterXML/jackson
+
+## 관심 주제 테스트
+- 요청 본문에 JSON 데이터를 실어 보내기
+
+```java
+mockMvc.perform(post(SettingsController.SETTINGS_TAGS_URL + "/add")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(objectMapper.writeValueAsString(tagForm))
+        .with(csrf()))
+        .andExpect(status().isOk());
+```
+
+- 테스트에 트랜잭션 적용하기
+
+```java
+@Transactional
+@SpringBootTest
+@AutoConfigureMockMvc
+class SettingsControllerTest {
+...
+}
+```

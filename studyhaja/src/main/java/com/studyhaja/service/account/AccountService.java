@@ -21,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -50,26 +51,18 @@ public class AccountService implements UserDetailsService {
 
     private final ModelMapper modelMapper;
 
-    public Account processNewAccount(SignUpForm signUpForm) {
+    public Account processNewAccount(@Valid SignUpForm signUpForm) {
         Account newAccount = saveNewAccount(signUpForm);
-        newAccount.generateEmailCheckToken();
 
-        // TODO: email 보내기 기능
         sendSignUpConfirmEmail(newAccount);
 
         return newAccount;
     }
 
-    private Account saveNewAccount(SignUpForm signUpForm) {
-        //TODO:  회원가입 처리
-        Account account = Account.builder()
-                .email(signUpForm.getEmail())
-                .nickname(signUpForm.getNickname())
-                .password(passwordEncoder.encode(signUpForm.getPassword())) // TODO: password encoding
-                .studyCreatedByWeb(true)
-                .studyEnrollmentResultByWeb(true)
-                .studyUpdatedByWeb(true)
-                .build();
+    private Account saveNewAccount(@Valid SignUpForm signUpForm) {
+        signUpForm.setPassword(passwordEncoder.encode(signUpForm.getPassword()));
+        Account account = modelMapper.map(signUpForm, Account.class);
+        account.generateEmailCheckToken();
 
         return accountRepository.save(account);
     }
