@@ -933,3 +933,14 @@ app.host = http://localhost:8080
   * Study에서 Account 쪽으로 @ManyToMany 단방향 관계 두 개 (managers, members)
   * Study에서 Zone으로 @ManyToMany 단방향 관계
   * Study에서 Tag로 @ManyToMany 단방향 관계
+
+## 스터디 개설
+- 스터디 개발 뷰
+
+![](./img18.png)
+
+- 에디터
+  * https://summernote.org/
+  * 부트스트랩과 연동이 편리함.
+  * 한국 개발자들의 오픈 소스.
+  * npm install summernote
