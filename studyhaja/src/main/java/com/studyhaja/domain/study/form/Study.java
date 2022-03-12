@@ -1,6 +1,7 @@
 package com.studyhaja.domain.study.form;
 
 import com.studyhaja.domain.account.form.Account;
+import com.studyhaja.domain.account.form.UserAccount;
 import com.studyhaja.domain.tag.form.Tag;
 import com.studyhaja.domain.zone.form.Zone;
 import lombok.*;
@@ -25,10 +26,16 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@EqualsAndHashCode(of = "id")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(of = "id")
+@NamedEntityGraph(name = "Study.withAll", attributeNodes = {
+        @NamedAttributeNode("tags"),
+        @NamedAttributeNode("zones"),
+        @NamedAttributeNode("managers"),
+        @NamedAttributeNode("members")
+})
 public class Study {
 
     @Id @GeneratedValue
@@ -77,5 +84,19 @@ public class Study {
 
     public void addManager(Account account) {
         this.managers.add(account);
+    }
+
+    public boolean isJoinable(UserAccount userAccount) {
+        Account account = userAccount.getAccount();
+
+        return this.isPublished() && this.isRecruiting() && !this.members.contains(account) && !this.managers.contains(account);
+    }
+
+    public boolean isMember(UserAccount userAccount) {
+        return this.members.contains(userAccount.getAccount());
+    }
+
+    public boolean isManager(UserAccount userAccount) {
+        return this.managers.contains(userAccount.getAccount());
     }
 }

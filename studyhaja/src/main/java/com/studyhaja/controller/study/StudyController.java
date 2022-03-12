@@ -5,6 +5,7 @@ import com.studyhaja.domain.account.form.Account;
 import com.studyhaja.domain.study.form.Study;
 import com.studyhaja.domain.study.form.StudyForm;
 import com.studyhaja.domain.study.validator.StudyFormValidator;
+import com.studyhaja.repository.study.StudyRepository;
 import com.studyhaja.service.study.StudyService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -14,6 +15,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
@@ -42,6 +44,8 @@ public class StudyController {
 
     private final StudyFormValidator studyFormValidator;
 
+    private final StudyRepository studyRepository;
+
     @InitBinder("studyForm")
     public void studyFormInitBinder(WebDataBinder webDataBinder) {
         webDataBinder.addValidators(studyFormValidator);
@@ -64,5 +68,13 @@ public class StudyController {
         Study study = studyService.createNewStudy(modelMapper.map(studyForm, Study.class), account);
 
         return "redirect:/study/" + URLEncoder.encode(study.getPath(), StandardCharsets.UTF_8);
+    }
+
+    @GetMapping("/study/{path}")
+    public String viewStudy(@CurrentAccount Account account, @PathVariable String path, Model model) {
+        model.addAttribute(account);
+        model.addAttribute(studyRepository.findByPath(path));
+
+        return "study/view";
     }
 }
