@@ -906,3 +906,14 @@ spring.mail.properties.mail.smtp.starttls.enable=true
 ```properties
 app.host = http://localhost:8080
 ```
+
+## 스터디 관기 기능 구상하기
+- 스터디 만들기
+- 스터디 공개 및 종료
+- 스터디 인원 모집
+- 스터디 설정
+  * 배너 이미지
+  * 스터디 주제 (Tag)
+  * 활동 지역 (Zone)
+  * 스터디 관리 (공개 / 경로 변경 / 이름 변경 / 스터디 삭제)
+- 스터디 참여 / 떠나기
