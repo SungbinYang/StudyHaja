@@ -917,3 +917,19 @@ app.host = http://localhost:8080
   * 활동 지역 (Zone)
   * 스터디 관리 (공개 / 경로 변경 / 이름 변경 / 스터디 삭제)
 - 스터디 참여 / 떠나기
+
+## 스터디 도메인
+- Study 엔티티
+  * Long Id
+  * Set<Account> managers
+  * Set<Account> members
+  * ...
+  * Set<Tag> tags
+  * Set<Zone> zones
+- 객체 관점에서 Study와 다른 엔티티의 관계
+
+  ![](./img17.png)
+
+  * Study에서 Account 쪽으로 @ManyToMany 단방향 관계 두 개 (managers, members)
+  * Study에서 Zone으로 @ManyToMany 단방향 관계
+  * Study에서 Tag로 @ManyToMany 단방향 관계

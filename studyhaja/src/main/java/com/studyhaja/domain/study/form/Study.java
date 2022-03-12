@@ -1,0 +1,76 @@
+package com.studyhaja.domain.study.form;
+
+import com.studyhaja.domain.account.form.Account;
+import com.studyhaja.domain.tag.form.Tag;
+import com.studyhaja.domain.zone.form.Zone;
+import lombok.*;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Set;
+
+/**
+ * packageName : com.studyhaja.domain.study.form
+ * fileName : Study
+ * author : rovert
+ * date : 2022/03/12
+ * description :
+ * ===========================================================
+ * DATE 			AUTHOR			 NOTE
+ * -----------------------------------------------------------
+ * 2022/03/12       rovert         최초 생성
+ */
+
+@Entity
+@Getter
+@Setter
+@EqualsAndHashCode(of = "id")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Study {
+
+    @Id @GeneratedValue
+    private Long id;
+
+    @ManyToMany
+    private Set<Account> managers;
+
+    @ManyToMany
+    private Set<Account> members;
+
+    @Column(unique = true)
+    private String path;
+
+    private String title;
+
+    private String shortDescription;
+
+    @Lob
+    @Basic
+    private String fullDescription;
+
+    @Lob
+    @Basic
+    private String image;
+
+    @ManyToMany
+    private Set<Tag> tags;
+
+    @ManyToMany
+    private Set<Zone> zones;
+
+    private LocalDateTime publishedDateTime;
+
+    private LocalDateTime closedDateTime;
+
+    private LocalDateTime recruitingUpdatedDateTime; // 시간제한을 둘 필요성이 있음
+
+    private boolean recruiting;
+
+    private boolean published;
+
+    private boolean closed;
+
+    private boolean useBanner;
+}
