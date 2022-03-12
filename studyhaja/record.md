@@ -981,3 +981,32 @@ th:if="${study.isManager(#authentication.principal)}"
 ```java
 @EntityGraph(value = "Study.withAllRelations", type = EntityGraph.EntityGraphType.LOAD)
 ```
+
+## 스터디 구성원 조회
+- 스터디 구성원 뷰
+
+![](./img20.png)
+
+- 타임리프 프레그먼트에 리스트와 true/false 전달하기
+
+```html
+<div th:replace="fragments.html :: member-list(members=${study.managers},isManager=${true})"></div>
+```
+
+- 타임리프 프레그먼트
+
+```html
+<div th:fragment="member-list (members, isManager)" class="row px-3 justify-content-center">
+...
+</div>
+```
+
+- 타임리프 반복문
+
+```html
+<li class="media mt-3" th:each="member: ${members}">
+        <h5 class="mt-0 mb-1"><span th:text="${member.nickname}"></span></h5>
+        <span th:text="${member.bio}"></span>
+    </div>
+</li>
+```
