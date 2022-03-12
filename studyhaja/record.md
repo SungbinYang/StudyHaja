@@ -1010,3 +1010,10 @@ th:if="${study.isManager(#authentication.principal)}"
     </div>
 </li>
 ```
+
+## 스터디 설정 - 소개 수정
+- 스터디 설정 - 소개 수정 뷰
+
+  ![](./img21.png)
+
+  * 스터디 매니저만 스터디 설정 기능을 사용할 수 있다.

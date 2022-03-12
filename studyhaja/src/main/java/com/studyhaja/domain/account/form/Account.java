@@ -1,5 +1,6 @@
 package com.studyhaja.domain.account.form;
 
+import com.studyhaja.domain.study.form.Study;
 import com.studyhaja.domain.tag.form.Tag;
 import com.studyhaja.domain.zone.form.Zone;
 import lombok.*;
@@ -97,5 +98,9 @@ public class Account {
     // 무작위 이메일 전송 방지
     public boolean canSendConfirmEmail() {
         return this.emailCheckTokenGeneratedAt.isBefore(LocalDateTime.now().minusHours(1));
+    }
+
+    public boolean isManagerOf(Study study) {
+        return study.getManagers().contains(this);
     }
 }
