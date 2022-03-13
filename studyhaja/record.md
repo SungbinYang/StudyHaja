@@ -1017,3 +1017,26 @@ th:if="${study.isManager(#authentication.principal)}"
   ![](./img21.png)
 
   * 스터디 매니저만 스터디 설정 기능을 사용할 수 있다.
+
+## 스터디 설정 - 배너
+
+![](./img22.png)
+
+- 기본 이미지 제공
+
+```java
+public String getImage() {
+    return image != null ? image : "/images/default-banner.png";
+}
+```
+
+- 서버 요청 크기 설정
+
+```properties
+# 톰캣 기본 요청 사이즈는 2MB 입니다. 그것보다 큰 요청을 받고 싶은 경우에 이 값을 조정해야 합니다.
+server.tomcat.max-http-form-post-size=5MB
+```
+
+- 이미지 파일 업로드 시 고려할 점
+  * 이미지 파일인지 확인 (이미지가 아닌 파일을 업로드 하려는건 아닌지 확인)
+  * 이미지 크기 확인 (너무 큰 이미지 업로드 하지 않도록)
