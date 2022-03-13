@@ -154,9 +154,9 @@
   * 입력값에 오류가 있는 경우 적절한 메시지 출력.
   * 인증이 완료된 경우, 환영 문구와 함께 몇번째 사용자인지 보여줄 것.
 
-![](./img01.png)
+![](img/img01.png)
 
-![](./img02.png)
+![](img/img02.png)
 
 ## 회원 가입: 인증 메일 확인 테스트 및 리팩토링
 - 테스트
@@ -197,7 +197,7 @@
 -인증 정보가 있는 경우
   * 알림 / 스터디 개설 / 프로필 드랍다운 메뉴 보여주기
 
-![](./img03.png)
+![](img/img03.png)
 
 ## 프론트엔드 라이브러리 설정
 - WebJar vs NPM
@@ -443,11 +443,11 @@ create table persistent_logins (username varchar(64) not null, series varchar(64
     * 트랜잭션 범위 밖에서 일어난 일이기 때문에!
 - 서비스에서 트랜잭션 관리하는 경우
 
-![](./img04.png)
+![](img/img04.png)
 
 - 리파지토리 직접 사용 경우
 
-![](./img05.png)
+![](img/img05.png)
 
 - 스터디하자의 선택
   * 데이터 변경은 서비스 계층으로 위임해서 트랜잭션안에서 처리한다.
@@ -456,7 +456,7 @@ create table persistent_logins (username varchar(64) not null, series varchar(64
 ## 프로필 수정 폼
 - 프로필 수정 뷰
 
-![](./img06.png)
+![](img/img06.png)
 
 - 컨트롤러
   * Bio, Link, Occupation, Location 정보만 입력받아서 Account 정보를 수정한다.
@@ -557,7 +557,7 @@ $("#profile-image-file").change(function(e) {
 ## 패스워드 수정
 - 패스워드 변경 뷰
 
-![](./img07.png)
+![](img/img07.png)
 
 - 패스워드 변경
   * 패스워드 탭 활성화.
@@ -573,7 +573,7 @@ $("#profile-image-file").change(function(e) {
 ## 알림 설정
 - 알림 설정 뷰
 
-![](./img08.png)
+![](img/img08.png)
 
 - 알림 설정
   * 특정 웹 서비스 이벤트(스터디 생성, 참가 신청 결과, 참여중인 스터디)에 대한 정보를 이메일로 받을지, 웹 알림 메시지로 받을지 선택하는 기능. 물론 둘 다 받을 수도 있음.
@@ -607,7 +607,7 @@ $("#profile-image-file").change(function(e) {
 ## 닉네임 수정
 - 계정 관리 뷰
 
-![](./img09.png)
+![](img/img09.png)
 
 - 닉네임 수정
   * 닉네임은 특정 패턴("^[ㄱ-ㅎ가-힣a-z0-9_-]{3,20}$")의 문자열만 지원 함.
@@ -638,13 +638,13 @@ $("#profile-image-file").change(function(e) {
   * Title (unique)
 - 객체 관점에서의 관계
 
-  ![](./img10.png)
+  ![](img/img10.png)
 
   * ManyToMany
   * Account에서 Tag를 참조 (단방향)
 - 릴레이션 DB 관점에서의 관계
 
-  ![](./img11.png)
+  ![](img/img11.png)
 
   * 조인 (join) 테이블을 사용해서 다대다 관계를 표현.
   * Account_Tag에서 Account의 PK 참조.
@@ -653,7 +653,7 @@ $("#profile-image-file").change(function(e) {
 ## 관심 주제 등록 뷰
 - 태그 등록 뷰
 
-![](./img12.png)
+![](img/img12.png)
 
 - SQL 확인
 
@@ -754,12 +754,12 @@ class SettingsControllerTest {
   * Province (주 이름, nullable)
 - Account와 Zone의 객체 지향적인 관계
 
-  ![](./img13.png)
+  ![](img/img13.png)
 
   * 다대다 (@ManyToMany) 단방향 관계
 - Account와 Zone의 관계형 관계
 
-  ![](./img14.png)
+  ![](img/img14.png)
 
   * 조인 테이블을 사용한 두개의 1대다 관계.
 - 지역 데이터 초기화
@@ -770,7 +770,7 @@ class SettingsControllerTest {
 ##  지역 정보 추가/삭제/테스트
 - 주요 활동 지역
 
-  ![](./img15.png)
+  ![](img/img15.png)
 
   * 태그 관리와 차이점은 미리 제공하는 데이터에서만 선택할 수 있다는 점.
 - 기존의 지역 정보 자동완성 목록에서만 선택 가능하다.
@@ -826,7 +826,7 @@ spring.datasource.password=testpass
   * 스키마 및 데이터 조작
   * 쿼리 실행
 
-  ![](./img16.png)
+  ![](img/img16.png)
 
 - 대체제
   * https://www.pgadmin.org/
@@ -928,7 +928,7 @@ app.host = http://localhost:8080
   * Set<Zone> zones
 - 객체 관점에서 Study와 다른 엔티티의 관계
 
-  ![](./img17.png)
+  ![](img/img17.png)
 
   * Study에서 Account 쪽으로 @ManyToMany 단방향 관계 두 개 (managers, members)
   * Study에서 Zone으로 @ManyToMany 단방향 관계
@@ -937,7 +937,7 @@ app.host = http://localhost:8080
 ## 스터디 개설
 - 스터디 개발 뷰
 
-![](./img18.png)
+![](img/img18.png)
 
 - 에디터
   * https://summernote.org/
@@ -948,7 +948,7 @@ app.host = http://localhost:8080
 ## 스터디 조회
 - 스터디 조회 뷰
 
-![](./img19.png)
+![](img/img19.png)
 
 - 타임리프 Variable Expression에서 객체의 메소드 호출 가능
 
@@ -985,7 +985,7 @@ th:if="${study.isManager(#authentication.principal)}"
 ## 스터디 구성원 조회
 - 스터디 구성원 뷰
 
-![](./img20.png)
+![](img/img20.png)
 
 - 타임리프 프레그먼트에 리스트와 true/false 전달하기
 
@@ -1014,13 +1014,13 @@ th:if="${study.isManager(#authentication.principal)}"
 ## 스터디 설정 - 소개 수정
 - 스터디 설정 - 소개 수정 뷰
 
-  ![](./img21.png)
+  ![](img/img21.png)
 
   * 스터디 매니저만 스터디 설정 기능을 사용할 수 있다.
 
 ## 스터디 설정 - 배너
 
-![](./img22.png)
+![](img/img22.png)
 
 - 기본 이미지 제공
 
@@ -1079,7 +1079,7 @@ server.tomcat.max-http-form-post-size=5MB
 
 ## 스터디 설정 - 상태 변경
 
-![](./img23.png)
+![](img/img23.png)
 
 - 스터디 공개 및 종료
   * 드래프트 상태에서 공개 상태로 전환 가능.
@@ -1096,7 +1096,22 @@ server.tomcat.max-http-form-post-size=5MB
 
 ## 스터디 설정 - 경로 및 이름 수정
 
-![](./img24.png)
+![](img/img24.png)
 
 - 지금까지와 동일함
   * 가장 적절한 쿼리 사용하기 (스터디 정보 수정에 필요한 만큼만 데이터 가져오기)
+
+## 스터디 삭제
+- 삭제 가능한 경우
+
+![](img/img25.png)
+
+- 삭제 불가능한 경우
+
+![](img/img26.png)
+
+- 데이터를 삭제하기 전에 고민할 것
+  * 정말로 삭제할 것인가
+  * 아니면 삭제 했다고 마킹을 해둘 것인가 ([Soft Delete](https://vladmihalcea.com/the-best-way-to-soft-delete-with-hibernate/))
+- 이 서비스에서는 스터디(+연관) 데이터를 실제로 삭제 합니다.
+  * Soft Delete와 비슷한 역할을 할 수 있는 스터디 종료 (closed) 개념이 있기 때문에 이 서비스에서의 “삭제”는 정말로 데이터를 삭제 한다.

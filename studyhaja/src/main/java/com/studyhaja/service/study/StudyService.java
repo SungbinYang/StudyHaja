@@ -142,6 +142,14 @@ public class StudyService {
         study.setTitle(newTitle);
     }
 
+    public void remove(Study study) {
+        if (study.isRemovable()) {
+            studyRepository.delete(study);
+        } else {
+            throw new IllegalArgumentException("스터디를 삭제 할 수 없습니다.");
+        }
+    }
+
     private void checkIfManager(Account account, Study study) {
         if (!account.isManagerOf(study)) {
             throw new AccessDeniedException("해당 기능을 사용할 수 없습니다.");
