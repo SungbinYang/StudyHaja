@@ -7,6 +7,8 @@ import com.studyhaja.domain.zone.form.Zone;
 import lombok.*;
 
 import javax.persistence.*;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -46,6 +48,9 @@ import java.util.Set;
 })
 @NamedEntityGraph(name = "Study.withManagers", attributeNodes = {
         @NamedAttributeNode("managers")
+})
+@NamedEntityGraph(name = "Study.withMembers", attributeNodes = {
+        @NamedAttributeNode("members")
 })
 public class Study {
 
@@ -95,10 +100,6 @@ public class Study {
 
     public void addManager(Account account) {
         this.managers.add(account);
-    }
-
-    public void addMember(Account account) {
-        this.members.add(account);
     }
 
     public boolean isJoinable(UserAccount userAccount) {
@@ -163,5 +164,17 @@ public class Study {
     public boolean isRemovable() {
         // TODO: 모임을 했던 스터디는 삭제할 수 없다.
         return !this.published;
+    }
+
+    public void addMember(Account account) {
+        this.getMembers().add(account);
+    }
+
+    public void removeMember(Account account) {
+        this.getMembers().remove(account);
+    }
+
+    public String getEncodePath() {
+        return URLEncoder.encode(this.path, StandardCharsets.UTF_8);
     }
 }

@@ -150,6 +150,14 @@ public class StudyService {
         }
     }
 
+    public void addMember(Study study, Account account) {
+        study.addMember(account);
+    }
+
+    public void removeMember(Study study, Account account) {
+        study.removeMember(account);
+    }
+
     private void checkIfManager(Account account, Study study) {
         if (!account.isManagerOf(study)) {
             throw new AccessDeniedException("해당 기능을 사용할 수 없습니다.");

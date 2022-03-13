@@ -1115,3 +1115,12 @@ server.tomcat.max-http-form-post-size=5MB
   * 아니면 삭제 했다고 마킹을 해둘 것인가 ([Soft Delete](https://vladmihalcea.com/the-best-way-to-soft-delete-with-hibernate/))
 - 이 서비스에서는 스터디(+연관) 데이터를 실제로 삭제 합니다.
   * Soft Delete와 비슷한 역할을 할 수 있는 스터디 종료 (closed) 개념이 있기 때문에 이 서비스에서의 “삭제”는 정말로 데이터를 삭제 한다.
+
+## 스터디 참여 및 탈퇴
+- 스터디 가입
+
+![](img/img27.png)
+
+- 스터디 탈퇴
+
+![](img/img28.png)
