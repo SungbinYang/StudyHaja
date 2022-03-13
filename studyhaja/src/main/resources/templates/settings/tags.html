@@ -28,7 +28,6 @@
         </div>
     </div>
     <script th:replace="fragments.html :: ajax-csrf-header"></script>
-    <script type="application/javascript" src="/node_modules/@yaireo/tagify/dist/tagify.min.js"></script>
-    <script type="application/javascript" th:src="@{/js/tag.js}"></script>
+    <script th:replace="fragments.html :: update-tags (baseUrl = '/settings/tags')"></script>
 </body>
 </html>

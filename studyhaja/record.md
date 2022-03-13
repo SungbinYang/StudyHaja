@@ -1040,3 +1040,39 @@ server.tomcat.max-http-form-post-size=5MB
 - 이미지 파일 업로드 시 고려할 점
   * 이미지 파일인지 확인 (이미지가 아닌 파일을 업로드 하려는건 아닌지 확인)
   * 이미지 크기 확인 (너무 큰 이미지 업로드 하지 않도록)
+
+## 스터디 설정 - 태그/지역
+- 데이터를 필요한 만큼만 읽어오기.
+  * 태그와 지역 정보를 Ajax로 수정할 때 스터디 (+멤버, +매니저, +태그, +지역) 정보를 전부 가져올 필요가 있는가?
+  * 스프링 데이터 JPA 메소드 작명, @EntityGraph와 @NamedEntityGraph 활용하기
+- Study.java
+
+```java
+@NamedEntityGraph(name = "Study.withTagsAndManagers", attributeNodes = {
+        @NamedAttributeNode("tags"),
+        @NamedAttributeNode("managers")})
+@NamedEntityGraph(name = "Study.withZonesAndManagers", attributeNodes = {
+        @NamedAttributeNode("zones"),
+        @NamedAttributeNode("managers")})
+```
+
+- StudyRepository.java
+
+  ```java
+  @EntityGraph(value = "Study.withTagsAndManagers", type = EntityGraph.EntityGraphType.LOAD)
+      Study findAccountWithTagsByPath(String path);
+      
+      @EntityGraph(value = "Study.withZonesAndManagers", type = EntityGraph.EntityGraphType.LOAD)
+      Study findAccountWithZonesByPath(String path);
+  ```
+
+  * WithZones는 스프링 데이터 JPA에게 무의미 하며 무해한 키워드라서 쿼리는 findByPath와 같지만 다른 @EntityGraph를 적용할 수 있다.
+- Study의 상태가 JPA 관점에서 어떤 상태인가.
+  * AccountService와 비교해보자.
+- 뷰 중복 코드 제거.
+
+  ```html
+  <script th:replace="fragments.html :: update-tags(baseUrl='/settings/tags')"></script>
+  ```
+  
+  * Account에 Tag를 추가하던 자바스크립트와 차이는 baseURL 뿐이다.

@@ -4,8 +4,6 @@ import com.studyhaja.domain.tag.form.Tag;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 /**
  * packageName : com.studyhaja.repository.tag
  * fileName : TagRepository

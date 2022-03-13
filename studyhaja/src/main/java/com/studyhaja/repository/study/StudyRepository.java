@@ -24,4 +24,10 @@ public interface StudyRepository extends JpaRepository<Study, Long> {
 
     @EntityGraph(value = "Study.withAll", type = EntityGraph.EntityGraphType.LOAD) // 쿼리 개수 줄이가 :: 성능 최적화
     Study findByPath(String path);
+
+    @EntityGraph(value = "Study.withTagsAndManagers", type = EntityGraph.EntityGraphType.FETCH)
+    Study findAccountWithTagsByPath(String path);
+
+    @EntityGraph(value = "Study.withZonesAndManagets", type = EntityGraph.EntityGraphType.FETCH)
+    Study findAccountWithZonesByPath(String path);
 }

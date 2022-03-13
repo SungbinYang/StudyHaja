@@ -19,6 +19,7 @@ import com.studyhaja.domain.zone.form.ZoneForm;
 import com.studyhaja.repository.tag.TagRepository;
 import com.studyhaja.repository.zone.ZoneRepository;
 import com.studyhaja.service.account.AccountService;
+import com.studyhaja.service.tag.TagService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
@@ -82,6 +83,8 @@ public class SettingsController extends UiUtils {
     private final ObjectMapper objectMapper;
 
     private final ZoneRepository zoneRepository;
+
+    private final TagService tagService;
 
     @InitBinder("passwordForm")
     public void passwordFormInitBinder(WebDataBinder webDataBinder) {
@@ -212,13 +215,7 @@ public class SettingsController extends UiUtils {
     @ResponseBody
     @PostMapping(TAGS + "/add")
     public ResponseEntity addTags(@CurrentAccount Account account, @RequestBody TagForm tagForm) {
-        String title = tagForm.getTagTitle();
-        Tag tag = tagRepository.findByTitle(title);
-
-        if (tag == null) {
-            tag = tagRepository.save(Tag.builder().title(tagForm.getTagTitle()).build());
-        }
-
+        Tag tag = tagService.findOrCreateNew(tagForm.getTagTitle());
         accountService.addTag(account, tag);
 
         return ResponseEntity.ok().build();
