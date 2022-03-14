@@ -1149,3 +1149,23 @@ server.tomcat.max-http-form-post-size=5MB
   * Event는 Account 쪽으로 @ManyToOne 단방향 관계
   * Enrollment는 Account 쪽으로 @ManyToOne 단방향 관계
 
+## 모임 만들기 뷰
+- 새 모임 만들기 뷰
+
+![](img/img30.png)
+
+- 타임리프 뷰에서 enum 값 선택하는 폼 보여주기
+
+```html
+<select th:field="*{eventType}"  class="custom-select mr-sm-2" id="eventType" aria-describedby="eventTypeHelp">
+    <option th:value="FCFS">선착순</option>
+    <option th:value="CONFIRMATIVE">관리자 확인</option>
+</select>
+```
+
+- DateTime 입력 포맷
+
+```java
+@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+private LocalDateTime endEnrollmentDateTime;
+```

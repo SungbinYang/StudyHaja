@@ -1,7 +1,7 @@
 package com.studyhaja.domain.enrollment;
 
 import com.studyhaja.domain.account.form.Account;
-import com.studyhaja.domain.event.Event;
+import com.studyhaja.domain.event.form.Event;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

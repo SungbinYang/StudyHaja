@@ -1,4 +1,4 @@
-package com.studyhaja.domain.event;
+package com.studyhaja.domain.event.form;
 
 import com.studyhaja.domain.account.form.Account;
 import com.studyhaja.domain.enrollment.Enrollment;
