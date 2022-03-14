@@ -1169,3 +1169,5 @@ server.tomcat.max-http-form-post-size=5MB
 @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 private LocalDateTime endEnrollmentDateTime;
 ```
+
+## 모임 만들기 폼 서브밋
