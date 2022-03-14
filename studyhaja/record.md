@@ -1131,3 +1131,21 @@ server.tomcat.max-http-form-post-size=5MB
 - 모임 수정 / 취소(삭제)
 - 모임 참가 신청 / 취소
 - 모임 참가 신청 확인 / 거절 / 출석 체크
+
+## 모임 도메인
+- Event
+  * EventType (enum)
+  * Study
+  * Account createdBy
+  * String title
+  * @Lob String description
+  * int limitOfEnrollments
+  * List<Enrollment> enrollments
+
+  ![](img/img29.png)
+
+  * Event에서 Study 쪽으로 @ManyToOne 단방향 관계
+  * Event와 Enrollment는 @OneToMany @ManyToOne 양방향 관계
+  * Event는 Account 쪽으로 @ManyToOne 단방향 관계
+  * Enrollment는 Account 쪽으로 @ManyToOne 단방향 관계
+
