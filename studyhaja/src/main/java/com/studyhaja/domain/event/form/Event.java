@@ -1,6 +1,7 @@
 package com.studyhaja.domain.event.form;
 
 import com.studyhaja.domain.account.form.Account;
+import com.studyhaja.domain.account.form.UserAccount;
 import com.studyhaja.domain.enrollment.Enrollment;
 import com.studyhaja.domain.study.form.Study;
 import com.studyhaja.enums.event.EventType;
@@ -64,4 +65,38 @@ public class Event {
 
     @Enumerated(EnumType.STRING)
     private EventType eventType;
+
+    public boolean isEnrollableFor(UserAccount userAccount) {
+        return isNotClosed() && !isAlreadyEnrolled(userAccount);
+    }
+
+    public boolean isDisenrollableFor(UserAccount userAccount) {
+        return isNotClosed() && isAlreadyEnrolled(userAccount);
+    }
+
+    private boolean isNotClosed() {
+        return this.endEnrollmentDateTime.isAfter(LocalDateTime.now());
+    }
+
+    public boolean isAttended(UserAccount userAccount) {
+        Account account = userAccount.getAccount();
+
+        for (Enrollment e : this.enrollments) {
+            if (e.getAccount().equals(account) && e.isAttended()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isAlreadyEnrolled(UserAccount userAccount) {
+        Account account = userAccount.getAccount();
+
+        for (Enrollment e : this.enrollments) {
+            if (e.getAccount().equals(account)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

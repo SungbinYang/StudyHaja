@@ -6,6 +6,7 @@ import com.studyhaja.domain.event.form.Event;
 import com.studyhaja.domain.event.form.EventForm;
 import com.studyhaja.domain.event.validator.EventValidator;
 import com.studyhaja.domain.study.form.Study;
+import com.studyhaja.repository.event.EventRepository;
 import com.studyhaja.service.event.EventService;
 import com.studyhaja.service.study.StudyService;
 import lombok.RequiredArgsConstructor;
@@ -43,6 +44,8 @@ public class EventController {
 
     private final EventValidator eventValidator;
 
+    private final EventRepository eventRepository;
+
     @InitBinder("eventForm")
     public void initBinder(WebDataBinder webDataBinder) {
         webDataBinder.addValidators(eventValidator);
@@ -73,5 +76,14 @@ public class EventController {
         Event event = eventService.createEvent(modelMapper.map(eventForm, Event.class), study, account);
 
         return "redirect:/study/" + study.getEncodePath() + "/events/" + event.getId();
+    }
+
+    @GetMapping("/events/{id}")
+    public String getEvent(@CurrentAccount Account account, @PathVariable String path, @PathVariable Long id, Model model) {
+        model.addAttribute(account);
+        model.addAttribute(eventRepository.findById(id).orElseThrow());
+        model.addAttribute(studyService.getStudy(path));
+
+        return "event/view";
     }
 }

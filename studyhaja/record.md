@@ -1171,3 +1171,34 @@ private LocalDateTime endEnrollmentDateTime;
 ```
 
 ## 모임 만들기 폼 서브밋
+
+## 모임 조회
+- 부트스트랩 modal 창 사용하기
+
+  ```html
+  <button th:if="${event.isEnrollableFor(#authentication.principal)}"
+          class="btn btn-outline-primary" data-toggle="modal" data-target="#enroll">
+      <i class="fa fa-plus-circle"></i> 참가 신청
+  </button>
+  
+  <div class="modal fade" id="enroll" tabindex="-1" role="dialog" aria-labelledby="enrollmentTitle" aria-hidden="true">
+  </div>
+  ```
+  
+  * https://getbootstrap.com/docs/4.4/components/modal/
+- Moment.js
+  * 날짜를 여러 형태로 표현해주는 라이브러리. 예) 2020년 3월, 일주일 뒤, 4시간 전, ...
+  * https://momentjs.com/
+
+  ```shell
+  npm install moment --save
+  ```
+  
+- 타임리프, 객체의 타입변환
+
+  ```html
+  <span th:if="${event.eventType == T(com.studyolle.domain.EventType).FCFS}">선착순</span>
+  <span th:if="${event.eventType == T(com.studyolle.domain.EventType).CONFIRMATIVE}">관리자 확인</span>
+  ```
+
+  * T(FQCN)
