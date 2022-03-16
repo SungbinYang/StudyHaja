@@ -1216,3 +1216,26 @@ private LocalDateTime endEnrollmentDateTime;
   * 모집 인원은 확정된 참가 신청 수 보다는 커야 한다. 예) 5명의 참가 신청을 확정 상태로 변경했다면, 모임을 수정할 때 모집 인원 수가 5보다는 커야 한다. 3으로 줄이면 안된다.
   * 최대한 모임 개설하기 화면의 코드를 재사용한다.
   * 모집 인원을 늘린 선착순 모임의 경우에, 자동으로 추가 인원의 참가 신청을 확정 상태로 변경해야 한다. (나중에 할 일)
+
+## 모임 취소
+- 삭제 요청을 어떻게 보낼까?
+  * POST “/study/{path}/events/{id}/delete” 
+  * DELETE “/study/{path}/events/{id}
+- DELETE를 쓰려면
+  * HTML의 FROM은 method로 GET과 POST만 지원한다. DELEET는 지원하지 않아.
+  * https://www.w3.org/TR/html4/interact/forms.html#h-17.3
+  * 그래도 굳이 쓰고 싶다면?
+- application.properties
+
+```properties
+# HTML <FORM>에서 th:method에서 PUT 또는 DELETE를 사용해서 보내는 _method를 사용해서  @PutMapping과 @DeleteMapping으로 요청을 맵핑.
+spring.mvc.hiddenmethod.filter.enabled=true
+```
+
+- 타임리프 th:method
+
+```html
+<form th:action="@{'/study/' + ${study.path} + '/events/' + ${event.id}}" th:method="delete">
+    <button class="btn btn-primary" type="submit" aria-describedby="submitHelp">확인</button>
+</form>
+```
