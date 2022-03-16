@@ -7,6 +7,7 @@ import com.studyhaja.domain.event.form.EventForm;
 import com.studyhaja.domain.event.validator.EventValidator;
 import com.studyhaja.domain.study.form.Study;
 import com.studyhaja.repository.event.EventRepository;
+import com.studyhaja.repository.study.StudyRepository;
 import com.studyhaja.service.event.EventService;
 import com.studyhaja.service.study.StudyService;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,9 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * packageName : com.studyhaja.controller.event
@@ -45,6 +49,8 @@ public class EventController {
     private final EventValidator eventValidator;
 
     private final EventRepository eventRepository;
+
+    private final StudyRepository studyRepository;
 
     @InitBinder("eventForm")
     public void initBinder(WebDataBinder webDataBinder) {
@@ -82,8 +88,33 @@ public class EventController {
     public String getEvent(@CurrentAccount Account account, @PathVariable String path, @PathVariable Long id, Model model) {
         model.addAttribute(account);
         model.addAttribute(eventRepository.findById(id).orElseThrow());
-        model.addAttribute(studyService.getStudy(path));
+        model.addAttribute(studyRepository.findStudyWithManagersByPath(path));
 
         return "event/view";
+    }
+
+    @GetMapping("/events")
+    public String viewStudyEvents(@CurrentAccount Account account, @PathVariable String path, Model model) {
+        Study study = studyService.getStudy(path);
+
+        model.addAttribute(account);
+        model.addAttribute(study);
+
+        List<Event> events = eventRepository.findByStudyOrderByStartDateTime(study);
+        List<Event> newEvents = new ArrayList<>();
+        List<Event> oldEvents = new ArrayList<>();
+
+        events.forEach(e -> {
+            if (e.getEndDateTime().isBefore(LocalDateTime.now())) {
+                oldEvents.add(e);
+            } else {
+                newEvents.add(e);
+            }
+        });
+
+        model.addAttribute("newEvents", newEvents);
+        model.addAttribute("oldEvents", oldEvents);
+
+        return "study/events";
     }
 }

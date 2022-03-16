@@ -1202,3 +1202,10 @@ private LocalDateTime endEnrollmentDateTime;
   ```
 
   * T(FQCN)
+
+## 모임 목록 조회
+
+![](img/img31.png)
+
+- N + 1 문제 해결
+  * @NamedGraph를 이용하여 해결
