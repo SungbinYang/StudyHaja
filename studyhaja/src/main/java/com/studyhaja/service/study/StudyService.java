@@ -158,6 +158,13 @@ public class StudyService {
         study.removeMember(account);
     }
 
+    public Study getStudyToEnroll(String path) {
+        Study study = studyRepository.findStudyOnlyByPath(path);
+        checkIfExistingStudy(path, study);
+
+        return study;
+    }
+
     private void checkIfManager(Account account, Study study) {
         if (!account.isManagerOf(study)) {
             throw new AccessDeniedException("해당 기능을 사용할 수 없습니다.");
