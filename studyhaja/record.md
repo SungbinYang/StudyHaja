@@ -1277,3 +1277,26 @@ public String rejectEnrollment(@PathVariable Long eventId, @PathVariable Long en
 @GetMapping("/events/{eventId}/enrollments/{enrollmentId}/reject")
 public String rejectEnrollment(@PathVariable(“eventId”) Event event, @PathVariable(“enrollmentId”) Enrollment enrollment)
 ```
+
+## 패키지 구조 정리
+
+![](./img/img32.png)
+
+- ArchUanit
+  * 아키텍처 테스트 유틸리티 (JUnit 5 지원)
+  * https://www.archunit.org/
+
+```xml
+        <dependency>
+            <groupId>com.tngtech.archunit</groupId>
+            <artifactId>archunit-junit5</artifactId>
+            <version>0.23.1</version>
+            <scope>test</scope>
+        </dependency>
+```
+
+- 패키지 정리
+  * 인프라 패키지에서 모듈 패키지 사용하지 않기.
+  * Study 패키지에 있는 클래스는 Event와 Study에 들어있는 클래스에서만 사용한다.
+  * Event 패키지에 있는 클래스는 Study와 Account 그리고 Event 패키지에 들어있는 클래스를 사용한다.
+  * 모듈 간에 순환 참조가 없는지 확인한다.
