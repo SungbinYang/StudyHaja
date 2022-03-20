@@ -1249,3 +1249,31 @@ spring.mvc.hiddenmethod.filter.enabled=true
   * 선착순 모임이라면, 대기 중인 모임 참가 신청 중에 가장 빨리 신청한 것을 확정 상태로 변경합니다.
 - 모임 수정 로직 보완
   * 선착순 모임 수정시 모집 인원이 늘었고 대기 중인 참가 신청이 있다면 가능한 만큼 대기 중인 신청을 확정 상태로 변경합니다.
+
+## 모임 참가 신청 수락 취소 및 출석 체크
+- 참가 신청 수락 및 취소 | 출석 체크
+- Event의 Enrollment 목록 순서를 정하려면
+
+  ```java
+  @OneToMany(mappedBy = "event")
+  @OrderBy("enrolledAt")
+  private List<Enrollment> enrollments = new ArrayList<>();
+  ```
+
+  * 이렇게 해둬야 정렬 조건을 줘야 매번 순서가 랜덤하게 바뀌지 않음.
+- 스프링 데이터 JPA가 제공하는 도메인 엔티티 컨버터 사용하기
+
+```java
+@GetMapping("/events/{eventId}/enrollments/{enrollmentId}/reject")
+public String rejectEnrollment(@PathVariable Long eventId, @PathVariable Long enrollmentId) {
+
+    Event event = eventRepository.findById(eventId).orElseThrow();
+    Enrollment enrollment = enrollmentRepository.findById(enrollmentId).orElseThrow();
+
+}
+```
+
+```java
+@GetMapping("/events/{eventId}/enrollments/{enrollmentId}/reject")
+public String rejectEnrollment(@PathVariable(“eventId”) Event event, @PathVariable(“enrollmentId”) Enrollment enrollment)
+```
