@@ -1,5 +1,6 @@
 package com.studyhaja.modules.event;
 
+import com.studyhaja.infra.AbstractContainerBaseTest;
 import com.studyhaja.infra.MockMvcTest;
 import com.studyhaja.modules.account.Account;
 import com.studyhaja.modules.account.AccountFactory;
@@ -34,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 
 @MockMvcTest
-class EventControllerTest {
+class EventControllerTest extends AbstractContainerBaseTest {
 
     @Autowired
     EventService eventService;

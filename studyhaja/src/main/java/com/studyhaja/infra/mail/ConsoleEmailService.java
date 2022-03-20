@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Slf4j
-@Profile("local")
+@Profile({"local", "test"})
 @Component
 public class ConsoleEmailService implements EmailService {
 
