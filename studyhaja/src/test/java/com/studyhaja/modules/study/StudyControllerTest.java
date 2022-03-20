@@ -1,18 +1,14 @@
 package com.studyhaja.modules.study;
 
-import com.studyhaja.modules.account.WithAccount;
+import com.studyhaja.infra.MockMvcTest;
 import com.studyhaja.modules.account.Account;
-import com.studyhaja.modules.study.Study;
+import com.studyhaja.modules.account.AccountFactory;
 import com.studyhaja.modules.account.AccountRepository;
-import com.studyhaja.modules.study.StudyRepository;
-import com.studyhaja.modules.study.StudyService;
+import com.studyhaja.modules.account.WithAccount;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -33,22 +29,26 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * 2022/03/13       rovert         최초 생성
  */
 
-@Transactional
-@SpringBootTest
-@AutoConfigureMockMvc
+@MockMvcTest
 public class StudyControllerTest {
 
     @Autowired
-    protected MockMvc mockMvc;
+    MockMvc mockMvc;
 
     @Autowired
-    protected StudyService studyService;
+    StudyService studyService;
 
     @Autowired
-    protected StudyRepository studyRepository;
+    StudyRepository studyRepository;
 
     @Autowired
-    protected AccountRepository accountRepository;
+    AccountRepository accountRepository;
+
+    @Autowired
+    AccountFactory accountFactory;
+
+    @Autowired
+    StudyFactory studyFactory;
 
 
     @Test
@@ -129,8 +129,8 @@ public class StudyControllerTest {
     @WithAccount("sungbin")
     @DisplayName("스터디 가입")
     void joinStudy() throws Exception {
-        Account account = createAccount("robert");
-        Study study = createStudy("test-study", account);
+        Account account = accountFactory.createAccount("robert");
+        Study study = studyFactory.createStudy("test-study", account);
 
         this.mockMvc.perform(get("/study/" + study.getPath() + "/join"))
                 .andDo(print())
@@ -145,8 +145,8 @@ public class StudyControllerTest {
     @WithAccount("sungbin")
     @DisplayName("스터디 탈퇴")
     void leaveStudy() throws Exception {
-        Account robert = createAccount("robert");
-        Study study = createStudy("test-study", robert);
+        Account robert = accountFactory.createAccount("robert");
+        Study study = studyFactory.createStudy("test-study", robert);
 
         Account sungbin = accountRepository.findByNickname("sungbin");
         studyService.addMember(study, sungbin);
@@ -157,24 +157,5 @@ public class StudyControllerTest {
                 .andExpect(redirectedUrl("/study/" + study.getPath() + "/members"));
 
         assertFalse(study.getMembers().contains(sungbin));
-    }
-
-
-
-    protected Study createStudy(String path, Account account) {
-        Study study = new Study();
-        study.setPath(path);
-        studyService.createNewStudy(study, account);
-
-        return study;
-    }
-
-    protected Account createAccount(String nickname) {
-        Account account = new Account();
-        account.setNickname(nickname);
-        account.setEmail(nickname + "@email.com");
-        accountRepository.save(account);
-
-        return account;
     }
 }

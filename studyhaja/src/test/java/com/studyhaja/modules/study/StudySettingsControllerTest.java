@@ -1,13 +1,14 @@
 package com.studyhaja.modules.study;
 
-import com.studyhaja.modules.account.WithAccount;
+import com.studyhaja.infra.MockMvcTest;
 import com.studyhaja.modules.account.Account;
-import lombok.RequiredArgsConstructor;
+import com.studyhaja.modules.account.AccountFactory;
+import com.studyhaja.modules.account.AccountRepository;
+import com.studyhaja.modules.account.WithAccount;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -26,18 +27,31 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * -----------------------------------------------------------
  * 2022/03/14       rovert         최초 생성
  */
-@Transactional
-@SpringBootTest
-@AutoConfigureMockMvc
-@RequiredArgsConstructor
-class StudySettingsControllerTest extends StudyControllerTest {
+
+@MockMvcTest
+class StudySettingsControllerTest {
+
+    @Autowired
+    MockMvc mockMvc;
+
+    @Autowired
+    StudyFactory studyFactory;
+
+    @Autowired
+    AccountFactory accountFactory;
+
+    @Autowired
+    AccountRepository accountRepository;
+
+    @Autowired
+    StudyRepository studyRepository;
 
     @Test
     @WithAccount("sungbin")
     @DisplayName("스터디 소개 수정 폼 조회 - 실패 (권한 없는 유저)")
     void updateDescriptionForm_fail() throws Exception {
-        Account robert = createAccount("robert");
-        Study study = createStudy("test-study", robert);
+        Account robert = accountFactory.createAccount("robert");
+        Study study = studyFactory.createStudy("test-study", robert);
 
         this.mockMvc.perform(get("/study/" + study.getPath() + "/settings/description"))
                 .andDo(print())
@@ -49,7 +63,7 @@ class StudySettingsControllerTest extends StudyControllerTest {
     @DisplayName("스터디 소개 수정 폼 조회 - 성공")
     void updateDescriptionForm() throws Exception {
         Account sungbin = accountRepository.findByNickname("sungbin");
-        Study study = createStudy("test-study", sungbin);
+        Study study = studyFactory.createStudy("test-study", sungbin);
 
         this.mockMvc.perform(get("/study/" + study.getPath() + "/settings/description"))
                 .andDo(print())
@@ -65,7 +79,7 @@ class StudySettingsControllerTest extends StudyControllerTest {
     @DisplayName("스터디 소개 수정 조회 - 성공")
     void updateDescription() throws Exception {
         Account sungbin = accountRepository.findByNickname("sungbin");
-        Study study = createStudy("test-study", sungbin);
+        Study study = studyFactory.createStudy("test-study", sungbin);
 
         String settingsDescriptionUrl = "/study/" + study.getPath() + "/settings/description";
 
@@ -84,7 +98,7 @@ class StudySettingsControllerTest extends StudyControllerTest {
     @DisplayName("스터디 소개 수정 조회 - 실패")
     void updateDescription_fail() throws Exception {
         Account sungbin = accountRepository.findByNickname("sungbin");
-        Study study = createStudy("test-study", sungbin);
+        Study study = studyFactory.createStudy("test-study", sungbin);
 
         String settingsDescriptionUrl = "/study/" + study.getPath() + "/settings/description";
 

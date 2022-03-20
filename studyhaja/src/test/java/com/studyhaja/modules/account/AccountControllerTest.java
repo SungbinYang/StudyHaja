@@ -1,17 +1,13 @@
 package com.studyhaja.modules.account;
 
-import com.studyhaja.modules.account.Account;
+import com.studyhaja.infra.MockMvcTest;
 import com.studyhaja.infra.mail.EmailMessage;
-import com.studyhaja.modules.account.AccountRepository;
 import com.studyhaja.infra.mail.EmailService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -36,16 +32,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * 2022/03/02       rovert         최초 생성
  */
 
-@Transactional
-@SpringBootTest
-@AutoConfigureMockMvc
+@MockMvcTest
 class AccountControllerTest {
 
     @Autowired
-    private MockMvc mockMvc;
+    MockMvc mockMvc;
 
     @Autowired
-    private AccountRepository accountRepository;
+    AccountRepository accountRepository;
 
     @MockBean
     EmailService emailService;

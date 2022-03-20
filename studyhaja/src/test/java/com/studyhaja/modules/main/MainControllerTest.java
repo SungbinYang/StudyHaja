@@ -1,15 +1,14 @@
 package com.studyhaja.modules.main;
 
-import com.studyhaja.modules.account.form.SignUpForm;
+import com.studyhaja.infra.MockMvcTest;
 import com.studyhaja.modules.account.AccountRepository;
 import com.studyhaja.modules.account.AccountService;
+import com.studyhaja.modules.account.form.SignUpForm;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -33,8 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * 2022/03/06       rovert         최초 생성
  */
 
-@SpringBootTest
-@AutoConfigureMockMvc
+@MockMvcTest
 class MainControllerTest {
 
     @Autowired

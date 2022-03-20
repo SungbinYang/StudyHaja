@@ -1300,3 +1300,23 @@ public String rejectEnrollment(@PathVariable(“eventId”) Event event, @PathVa
   * Study 패키지에 있는 클래스는 Event와 Study에 들어있는 클래스에서만 사용한다.
   * Event 패키지에 있는 클래스는 Study와 Account 그리고 Event 패키지에 들어있는 클래스를 사용한다.
   * 모듈 간에 순환 참조가 없는지 확인한다.
+
+## 테스트 클래스 정리
+- ObjectMother를 적용하자
+  * https://martinfowler.com/bliki/ObjectMother.html
+  * 테스트에 필요한 데이터를 만드는데 도움을 주는 유틸티리
+> “An object mother is a kind of class used in testing to help create example objects that you use for testing.”
+
+- AccountFactory와 StudyFactory를 만들고 테스트 픽트처 메소드 옮기기
+  * 상속 보다는 위임을.
+- 커스텀 애노테이션으로 테스트 애노테이션 묶음 만들기
+
+```java
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+@Transactional
+@SpringBootTest
+@AutoConfigureMockMvc
+public @interface MockMvcTest {
+}
+```
