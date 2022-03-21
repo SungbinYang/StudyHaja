@@ -1368,3 +1368,17 @@ spring.datasource.driver-class-name=org.testcontainers.jdbc.ContainerDatabaseDri
 - 관심 주제 && 활동 지역이 매칭 되는 스터디 생성시 알림 받기
 - 참여중인 스터디의 변경 사항에 대한 알림 받기
 - 모임 참가 신청 결과에 대한 알림 받기
+
+## 알림 도메인
+
+  ![](./img/img33.png)
+
+  * Notification에서 Account로 ManyToOne 단방형 관계
+- Notification
+  * 제목
+  * 링크
+  * 짧은 메시지
+  * 확인 여부
+  * 누구에게 (Account)
+  * 언제
+  * 알림 타입 (새 스터디, 참여중인 스터디, 모임 참가 신청 결과)
