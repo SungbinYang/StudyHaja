@@ -1,12 +1,14 @@
 package com.studyhaja.modules.study;
 
 import com.studyhaja.modules.account.Account;
+import com.studyhaja.modules.study.event.StudyCreatedEvent;
 import com.studyhaja.modules.study.form.StudyDescriptionForm;
 import com.studyhaja.modules.study.form.StudyForm;
 import com.studyhaja.modules.tag.Tag;
 import com.studyhaja.modules.zone.Zone;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,9 +34,12 @@ public class StudyService {
 
     private final ModelMapper modelMapper;
 
+    private final ApplicationEventPublisher eventPublisher;
+
     public Study createNewStudy(Study study, Account account) {
         Study newStudy = studyRepository.save(study);
         newStudy.addManager(account);
+        eventPublisher.publishEvent(new StudyCreatedEvent(newStudy));
         return newStudy;
     }
 
