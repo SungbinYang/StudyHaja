@@ -1360,3 +1360,11 @@ spring.datasource.driver-class-name=org.testcontainers.jdbc.ContainerDatabaseDri
 - 모든 테스트에서 컨테이너 하나 사용하기
   * 싱글톤 컨테이너
   * https://www.testcontainers.org/test_framework_integration/manual_lifecycle_control/#singleton-containers
+
+## 알림 기능 구상하기
+- 읽지 않은 / 읽은 알림 목록 조회 
+- 읽은 알림 삭제
+- 이메일 / 웹 알림
+- 관심 주제 && 활동 지역이 매칭 되는 스터디 생성시 알림 받기
+- 참여중인 스터디의 변경 사항에 대한 알림 받기
+- 모임 참가 신청 결과에 대한 알림 받기
