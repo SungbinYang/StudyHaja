@@ -1506,3 +1506,13 @@ public class WebConfig implements WebMvcConfigurer {
 - 타임리프 + 부트스트랩
   * th:if 조건문으로 읽지 않은 메시지가 있는지 확인.
   * text-info 클래스로 아이콘에 파란색 적용.
+
+## 알림 목록 조회 및 삭제
+- GET “/notifications”
+  * 읽지 않은 알림 메시지만 보여준다.
+  * 알림 메시지를 카테고리 별로 나눠서 Model에 담아주고 뷰에서 보여준다.
+  * 모든 읽지 않은 알림 메시지를 읽은 메시지로 수정한다.
+- GET “/notifications/old”
+  * 읽은 알림 메시지를 보여준다.
+- DELETE “/notifications”
+  * 읽은 알림 메시지를 삭제한다.
