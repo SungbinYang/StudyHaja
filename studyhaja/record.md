@@ -1531,3 +1531,7 @@ public class WebConfig implements WebMvcConfigurer {
 - 모임 참가 신청
   * 참가 신청 수락
   * 참가 신청 거절
+
+## 검색 기능 구상하기
+- 키워드에 해당하는 스터디 이름이나 태그로 검색
+- 페이징
