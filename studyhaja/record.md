@@ -1516,3 +1516,9 @@ public class WebConfig implements WebMvcConfigurer {
   * 읽은 알림 메시지를 보여준다.
 - DELETE “/notifications”
   * 읽은 알림 메시지를 삭제한다.
+
+## 관심있는 스터디 변경 알림
+- 참여중인 스터디 변경 사항에 대한 알림
+  * 스터디 소개를 수정 했을 때
+  * 스터디 종료시
+  * 스터디 팀원 모집 시작 / 중지

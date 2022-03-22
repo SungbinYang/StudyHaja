@@ -6,20 +6,21 @@ import lombok.RequiredArgsConstructor;
 
 /**
  * packageName : com.studyhaja.modules.study.event
- * fileName : StudyCreatedEvent
+ * fileName : StudyUpdateEvent
  * author : rovert
- * date : 2022/03/21
+ * date : 2022/03/22
  * description :
  * ===========================================================
  * DATE 			AUTHOR			 NOTE
  * -----------------------------------------------------------
- * 2022/03/21       rovert         최초 생성
+ * 2022/03/22       rovert         최초 생성
  */
-
 
 @Getter
 @RequiredArgsConstructor
-public class StudyCreatedEvent {
+public class StudyUpdateEvent {
 
     private final Study study;
+
+    private final String message;
 }
