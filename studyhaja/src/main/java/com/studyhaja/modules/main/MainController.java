@@ -2,9 +2,14 @@ package com.studyhaja.modules.main;
 
 import com.studyhaja.modules.account.CurrentAccount;
 import com.studyhaja.modules.account.Account;
+import com.studyhaja.modules.study.Study;
+import com.studyhaja.modules.study.StudyRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
 
 /**
  * packageName : com.studyhaja.main
@@ -19,7 +24,10 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 
 @Controller
+@RequiredArgsConstructor
 public class MainController {
+
+    private final StudyRepository studyRepository;
 
     @GetMapping("/")
     public String home(@CurrentAccount Account account, Model model) {
@@ -33,6 +41,14 @@ public class MainController {
     @GetMapping("/login")
     public String login() {
         return "login";
+    }
+
+    @GetMapping("/search/study")
+    public String searchStudy(String keyword, Model model) {
+        List<Study> studyList = studyRepository.findByKeyword(keyword);
+        model.addAttribute(studyList);
+        model.addAttribute("keyword", keyword);
+        return "search";
     }
 
 }
