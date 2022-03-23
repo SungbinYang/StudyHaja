@@ -1552,3 +1552,12 @@ public class WebConfig implements WebMvcConfigurer {
     * 지역
     * 멤버 수
     * 스터디 공개 일시
+## N+1 Select 문제 해결
+- left (outer) join + fetchJoin + distinct로 해결.
+- left (outer) join
+   * 첫번째(left) 테이블에 연관 관계가 있는 모든 데이터 가져오기. 연관 데이터가 없으면 null로 채워서라도...
+   * 첫번째 테이블 컬럼만 본다면 중복 row 발생
+- fetchJoin
+   * join 관계의 데이터도 같이 가져온다.
+- distinct
+   * 중복 제거
