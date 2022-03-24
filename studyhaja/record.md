@@ -1552,6 +1552,7 @@ public class WebConfig implements WebMvcConfigurer {
     * 지역
     * 멤버 수
     * 스터디 공개 일시
+
 ## N+1 Select 문제 해결
 - left (outer) join + fetchJoin + distinct로 해결.
 - left (outer) join
@@ -1561,3 +1562,14 @@ public class WebConfig implements WebMvcConfigurer {
    * join 관계의 데이터도 같이 가져온다.
 - distinct
    * 중복 제거
+
+## 페이징 적용
+- 고전적인 방식의 페이징
+  * SQL의 limit과 offset 사용하기
+- 스프링 데이터 JPA가 제공하는 Pageable 사용하기
+  * page와 size
+  * sort도 지원한다.
+  * 기본값 설정하는 방법 @PageableDefault
+- 이전에 emtpy 콜렉션을 Model에 넣을 때 발생했던 버그(?)에 대하여...
+  * 사실 버그가 아니라 스프링 MVC의 정해진 동작 방식. (이상하긴 하지만..)
+  * 우회하려면 이름을 반드시 줄 것.

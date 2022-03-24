@@ -6,13 +6,17 @@ import com.studyhaja.modules.study.event.StudyUpdateEvent;
 import com.studyhaja.modules.study.form.StudyDescriptionForm;
 import com.studyhaja.modules.study.form.StudyForm;
 import com.studyhaja.modules.tag.Tag;
+import com.studyhaja.modules.tag.TagRepository;
 import com.studyhaja.modules.zone.Zone;
 import lombok.RequiredArgsConstructor;
+import net.bytebuddy.utility.RandomString;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashSet;
 
 /**
  * packageName : com.studyhaja.service.study
@@ -36,6 +40,8 @@ public class StudyService {
     private final ModelMapper modelMapper;
 
     private final ApplicationEventPublisher eventPublisher;
+
+    private final TagRepository tagRepository;
 
     public Study createNewStudy(Study study, Account account) {
         Study newStudy = studyRepository.save(study);
@@ -182,6 +188,27 @@ public class StudyService {
     private void checkIfExistingStudy(String path, Study study) {
         if (study == null) {
             throw new IllegalArgumentException(path + "에 해당하는 스터디가 없습니다.");
+        }
+    }
+
+    public void generateTestStudies(Account account) {
+        for (int i = 0; i < 30; i++) {
+            String randomValue = RandomString.make(5);
+            Study study = Study.builder()
+                    .title("테스트용 스터디 " + randomValue)
+                    .path("tests-" + randomValue)
+                    .shortDescription("테스트용 스터디입니다.")
+                    .fullDescription("tests")
+                    .tags(new HashSet<>())
+                    .managers(new HashSet<>())
+                    .build();
+            study.publish();
+
+            Study newStudy = this.createNewStudy(study, account);
+
+            Tag jpa = tagRepository.findByTitle("JPA");
+            newStudy.getTags().add(jpa);
+
         }
     }
 }
