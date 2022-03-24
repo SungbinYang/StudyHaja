@@ -36,7 +36,7 @@ public class StudyRepositoryExtensionImpl extends QuerydslRepositorySupport impl
                 .leftJoin(study.tags, QTag.tag).fetchJoin()
                 .leftJoin(study.zones, QZone.zone).fetchJoin()
                 .leftJoin(study.members, QAccount.account).fetchJoin()
-                .distinct(); // 쿼리 최적화
+                .distinct();
 
         return query.fetch();
     }
