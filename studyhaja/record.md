@@ -1573,3 +1573,42 @@ public class WebConfig implements WebMvcConfigurer {
 - 이전에 emtpy 콜렉션을 Model에 넣을 때 발생했던 버그(?)에 대하여...
   * 사실 버그가 아니라 스프링 MVC의 정해진 동작 방식. (이상하긴 하지만..)
   * 우회하려면 이름을 반드시 줄 것.
+
+## 검색 뷰 개선
+- 부트스트랩
+  * https://getbootstrap.com/docs/4.4/components/pagination/
+- 정렬 조건 추가
+  * 스터디 공개 일시
+  * 멤버수
+- 키워드 하이라이팅
+  * mark.js
+  * https://markjs.io/
+
+```shell
+npm install mark.js --save
+```
+
+```javascript
+var mark = function() {
+    // Read the keyword
+    var keyword = $("#keyword").text();
+
+    // Determine selected options
+    var options = {
+        "each": function(element) {
+            setTimeout(function() {
+                $(element).addClass("animate");
+            }, 150);
+        }
+    };
+
+    // Mark the keyword inside the context
+    $(".context").unmark({
+        done: function() {
+            $(".context").mark(keyword, options);
+        }
+    });
+};
+
+mark();
+```

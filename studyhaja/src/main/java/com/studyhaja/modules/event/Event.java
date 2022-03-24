@@ -61,6 +61,7 @@ public class Event {
     @Column(nullable = false)
     private LocalDateTime endDateTime;
 
+    @Column
     private Integer limitOfEnrollments;
 
     @OneToMany(mappedBy = "event")
