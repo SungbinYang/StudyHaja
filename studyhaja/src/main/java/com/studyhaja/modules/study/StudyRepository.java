@@ -4,6 +4,8 @@ import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * packageName : com.studyhaja.repository.study
  * fileName : StudyRepository
@@ -43,4 +45,7 @@ public interface StudyRepository extends JpaRepository<Study, Long>, StudyReposi
 
     @EntityGraph(attributePaths = {"members", "managers"})
     Study findStudyWithManagersAndMemebersById(Long id);
+
+    @EntityGraph(attributePaths = {"zones", "tags"})
+    List<Study> findFirst9ByPublishedAndClosedOrderByPublishedDateTimeDesc(boolean published, boolean closed);
 }
