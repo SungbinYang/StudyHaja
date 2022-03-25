@@ -32,9 +32,11 @@ public class PackageDependencyTests {
 
     private static final String ZONE = "..modules.zone..";
 
+    private static final String MAIN = "..modules.main..";
+
     @ArchTest
     ArchRule studyPackageRule = classes().that().resideInAPackage(STUDY).should().onlyBeAccessed().byClassesThat()
-            .resideInAnyPackage(STUDY, EVENT);
+            .resideInAnyPackage(STUDY, EVENT, MAIN);
 
     @ArchTest
     ArchRule eventPackageRule = classes().that().resideInAPackage(EVENT).should().accessClassesThat()

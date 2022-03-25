@@ -1,7 +1,9 @@
 package com.studyhaja.modules.main;
 
+import com.studyhaja.modules.account.AccountRepository;
 import com.studyhaja.modules.account.CurrentAccount;
 import com.studyhaja.modules.account.Account;
+import com.studyhaja.modules.event.EnrollmentRepository;
 import com.studyhaja.modules.study.Study;
 import com.studyhaja.modules.study.StudyRepository;
 import lombok.RequiredArgsConstructor;
@@ -33,10 +35,22 @@ public class MainController {
 
     private final StudyRepository studyRepository;
 
+    private final EnrollmentRepository enrollmentRepository;
+
+    private final AccountRepository accountRepository;
+
     @GetMapping("/")
     public String home(@CurrentAccount Account account, Model model) {
         if (account != null) {
-            model.addAttribute(account);
+            Account accountLoaded = accountRepository.findAccountWithTagsAndZonesById(account.getId());
+
+            model.addAttribute(accountLoaded);
+            model.addAttribute("enrollmentList", enrollmentRepository.findByAccountAndAcceptedOrderByEnrolledAtDesc(accountLoaded, true));
+            model.addAttribute("studyList", studyRepository.findByAccount(accountLoaded.getTags(), accountLoaded.getZones()));
+            model.addAttribute("studyManagerOf", studyRepository.findFirst5ByManagersContainingAndClosedOrderByPublishedDateTimeDesc(account, false));
+            model.addAttribute("studyMemberOf", studyRepository.findFirst5ByMembersContainingAndClosedOrderByPublishedDateTimeDesc(account, false));
+
+            return "index-after-login";
         }
 
         model.addAttribute("studyList", studyRepository.findFirst9ByPublishedAndClosedOrderByPublishedDateTimeDesc(true, false));
