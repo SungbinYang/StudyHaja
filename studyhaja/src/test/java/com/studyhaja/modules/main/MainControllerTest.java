@@ -4,6 +4,7 @@ import com.studyhaja.infra.AbstractContainerBaseTest;
 import com.studyhaja.infra.MockMvcTest;
 import com.studyhaja.modules.account.AccountRepository;
 import com.studyhaja.modules.account.AccountService;
+import com.studyhaja.modules.account.WithAccount;
 import com.studyhaja.modules.account.form.SignUpForm;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.unauthenticated;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
@@ -110,6 +112,15 @@ class MainControllerTest extends AbstractContainerBaseTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/"))
                 .andExpect(unauthenticated());
+    }
+
+    @Test
+    @WithAccount("sungbin")
+    @DisplayName("인증된 사용자가 로그인 페이지 접근시 에러")
+    void login_access_fail() throws Exception {
+        this.mockMvc.perform(get("/login"))
+                .andDo(print())
+                .andExpect(status().isForbidden());
     }
 
 }

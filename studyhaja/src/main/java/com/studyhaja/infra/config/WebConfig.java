@@ -23,8 +23,8 @@ import java.util.stream.Collectors;
  * 2022/03/22       rovert         최초 생성
  */
 
-@Configuration
 @RequiredArgsConstructor
+@Configuration(proxyBeanMethods = false)
 public class WebConfig implements WebMvcConfigurer {
 
     private final NotificationInterceptor notificationInterceptor;

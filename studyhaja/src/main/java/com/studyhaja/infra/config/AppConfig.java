@@ -19,7 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * 2022/03/03       rovert         최초 생성
  */
 
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class AppConfig {
 
     @Bean

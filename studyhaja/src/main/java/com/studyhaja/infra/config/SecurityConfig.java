@@ -27,9 +27,9 @@ import javax.sql.DataSource;
  * 2022/03/02       rovert         최초 생성
  */
 
-@Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
+@Configuration(proxyBeanMethods = false)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
@@ -40,13 +40,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .mvcMatchers("/", "/login", "/sign-up", "/check-email-token", "/email-login",
+                .mvcMatchers("/login").not().fullyAuthenticated()
+                .mvcMatchers("/", "/sign-up", "/check-email-token", "/email-login",
                         "/login-by-email", "/search/study").permitAll()
                 .mvcMatchers(HttpMethod.GET, "/profile/*").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login").permitAll()
+                .loginPage("/login")
                 .and()
                 .logout()
                 .logoutSuccessUrl("/")

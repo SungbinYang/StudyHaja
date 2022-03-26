@@ -1650,3 +1650,28 @@ mark();
     * 이미 종료된 스터디의 모임 생성 시도
     * 이미 종료된 모임에 참가 신청 시도
     * 관리자 권한이 없는 스터디 수정 시도
+
+## 배포시 고려할 것
+- 고려해야 할 것
+  * 환경(프로필)에 따라 각기 다른 설정 파일 제공하는 방법
+  * 로깅
+  * 패키징
+  * 배포 방법
+- 프로필별 설정 파일
+  * application-{profile}.properties
+  * 위치에 따른 우선 순위
+    * 파일 시스템 “현재 디렉토리/config”에 있는 application-{profile}.properties
+    * 파일 시스템 “현재 디렉토리”에 있는 application-{profile}.properties
+    * 클래스패스의 “.config”에 들어있는 application-{profile}.properties
+    * 클래스패스 루트에 있는 application-{profile}.properties
+- 로깅
+  * 모니터링 시스템과 연동 필요
+  * 민간한 데이터를 로깅하지 않도록 설정
+  * 각 배포 환경에 알맞은 로길 설정 필요
+- 패키징
+  * 외부 톰캣 인스턴스에 WAR로 배포할 것인가
+  * 톰캣을 내장한 형태의 JAR로 배포할 것인가
+- 배포방법
+  * CI / CD 구축 필요
+  * 코드를 변경했을 때마다 CI 서버가 모든 테스트를 실행하고 packaging 한다.
+  * CD는 코드를 배포할 준비가 됐거나, 주기적으로 특정 환경에 패키징한 애플리케이션을 배포.

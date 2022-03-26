@@ -56,7 +56,8 @@ class StudySettingsControllerTest extends AbstractContainerBaseTest {
 
         this.mockMvc.perform(get("/study/" + study.getPath() + "/settings/description"))
                 .andDo(print())
-                .andExpect(status().isForbidden());
+                .andExpect(status().isOk())
+                .andExpect(view().name("error"));
     }
 
     @Test
